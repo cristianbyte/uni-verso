@@ -20,7 +20,7 @@ h1 {
     font-size: 8rem;
     color: var(--color-background);
     margin: 0;
-    animation: bounce 1s ease-in-out infinite;
+    animation: bounce 3s ease-in-out infinite;
     font-weight: 900;
 }
 
@@ -30,7 +30,7 @@ h1 {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-12px);
+      transform: translateY(-10px);
     }
   }
   

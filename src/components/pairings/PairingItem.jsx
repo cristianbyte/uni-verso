@@ -46,8 +46,8 @@ const PairingItem = ({ pair }) => {
               />
             ) : (
               <Frame
-                src={pair.pairedUser.icon}
-                text={pair.pairedUser.name}
+                src={pair.pairedUser && pair.pairedUser.icon}
+                text={pair.pairedUser && pair.pairedUser.name}
                 fontSize={"1rem"}
               />
             )}
