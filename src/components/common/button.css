@@ -1,0 +1,17 @@
+.button-primary{
+    transition: .2s ease;
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    border: var(--border) solid var(--c-dark-purple);
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--color-primary);
+    box-shadow: -5px 5px 0px 0px var(--color-primary);
+    cursor: pointer;
+}
+
+.button-primary:hover{
+    transform: translateX(-5px) translateY(5px);
+    box-shadow: none;
+    color: var(--c-tickie-pink);
+}
