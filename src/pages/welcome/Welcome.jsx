@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/common/Button';
+import Button from '../../components/button/Button';
 import './welcome.css';
 
 function Welcome() {

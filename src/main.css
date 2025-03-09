@@ -1,0 +1,28 @@
+:root {
+    --color-background: #F5F5F5;
+    --color-primary: #24003A;
+    --color-cancel: #FF9D00;
+    --color-accept: #00FF9D;
+    --color-shadow: #808080;
+    --color-main: #9D00FF;
+    --border-radius: 10px;
+    --border: 2px;
+}
+
+* {
+	box-sizing: border-box;
+	position: relative;
+	min-width: 0;
+}
+
+body{
+	min-height: 100dvh;
+}
+
+h1, h2, h3, h4{
+	text-wrap: balance;
+}
+
+p{
+	text-wrap: pretty;
+}

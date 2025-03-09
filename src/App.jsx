@@ -1,11 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
-import Welcome from './pages/Welcome';
-import './styles/main.css';
+import Welcome from './pages/welcome/Welcome';
 
 function App() {
   return (
-    <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />
@@ -13,7 +11,6 @@ function App() {
           <Route path="*" element={<Welcome />} /> {/* Ruta para manejar 404 */}
         </Routes>
       </BrowserRouter>
-    </UserProvider>
   );
 }
 
