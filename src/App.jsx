@@ -1,16 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
+import ErrorPage from './pages/error/ErrorPage';
 import Welcome from './pages/welcome/Welcome';
 
 function App() {
   return (
-      <BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
         <Routes>
           <Route path="/" element={<Welcome />} />
-          {/* Aquí irán más rutas cuando las implementes */}
-          <Route path="*" element={<Welcome />} /> {/* Ruta para manejar 404 */}
+          {/* <Route path="/battle" element={<Battle />} /> */}
+          {/* <Route path="/profile" element={<Profile />} /> */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
-      </BrowserRouter>
+      </UserProvider>
+    </BrowserRouter>
   );
 }
 
