@@ -7,7 +7,7 @@ const Button = ({
   onClick, 
   to, 
   type = "button", 
-  className = "button-primary text-style-1",
+  className = "button-primary",
   disabled = false
 }) => {
   const navigate = useNavigate();
@@ -31,8 +31,8 @@ const Button = ({
       className={`button ${className}`}
       disabled={disabled}
     >
-      {icon && <span className="button-icon">{icon}</span>}
-      {text && <span className="button-text">{text}</span>}
+      {icon && <span className="button" >{icon}</span>}
+      {text && <span >{text}</span>}
     </button>
   );
 };

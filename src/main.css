@@ -9,10 +9,23 @@
     --border: 2px;
 }
 
+@font-face {
+    font-family: Poppins;
+    src: url('./assets/fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: PoppinsBold;
+    src: url('./assets/fonts/Poppins-Bold.ttf');
+}
+
 * {
 	box-sizing: border-box;
 	position: relative;
 	min-width: 0;
+    padding: 0;
+    margin: 0;
+    font-family: 'PoppinsBold';
 }
 
 body{

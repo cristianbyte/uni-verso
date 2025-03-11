@@ -5,7 +5,8 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     nickname: '',
-    profileImage: ''
+    profileImage: '',
+    // settings: { theme: 'light', notifications: true }
   });
 
   return (
@@ -13,4 +14,4 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
-};
+}
