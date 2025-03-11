@@ -1,13 +1,17 @@
 import './frame.css';
 
-const Frame = ({ src }) => {
+const Frame = ({ src, text }) => {
     return (
-        <img 
-            src={src}
-            alt="frame"
-            className="frame"
-            style={{ listStyle: "none", borderRadius: "10%"}} 
-        />
+        <div className='frame'>
+            <img 
+                src={src}
+                alt="frame"
+                className="frame__image" 
+            />
+            <h3 className='frame__text'>
+                {text}
+            </h3>
+        </div>
     );
 }
 

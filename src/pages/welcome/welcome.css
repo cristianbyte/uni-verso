@@ -23,12 +23,17 @@
     align-items: center;
 
     input{
+        text-transform: capitalize;
         width: calc(25vw + 5rem);
         border: none;
         text-align: center;
         font-size: 1.5rem;
-        border-bottom: 3px solid var(--color-primary);
+        border-bottom: 5px solid var(--color-shadow);
         cursor: text;
+    }
+    
+    input::placeholder {
+        color: var(--color-shadow);
     }
 
     input:focus{
@@ -39,11 +44,12 @@
 .swiper-container{
     width: 70vw;
     height: 70vw;
+    margin-bottom: 10vh;
 }
 
 
 .swiper-slide{
-    border-radius: 10%;
+    border-radius: 10px;
     box-sizing: border-box ;
 }
 

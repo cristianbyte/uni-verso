@@ -28,10 +28,10 @@ const Button = ({
     <button
       type={type}
       onClick={handleClick}
-      className={`button ${className}`}
+      className={`button-${className}`}
       disabled={disabled}
     >
-      {icon && <span className="button" >{icon}</span>}
+      {icon && <span className="button__icon" >{icon}</span>}
       {text && <span >{text}</span>}
     </button>
   );

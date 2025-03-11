@@ -1,10 +1,24 @@
 .frame {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    object-position: center;
+    aspect-ratio: 5 / 6;
+    width: 100%;
     background-color: var(--color-background);
     padding: 10%;
-    border-radius: 10% !important;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.frame__image{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.frame__text{
+    position: relative;
+    top: 5%;
+    font-size: 2rem;
+    text-transform: capitalize;
+    color: var(--color-primary);
+    text-align: center;
 }

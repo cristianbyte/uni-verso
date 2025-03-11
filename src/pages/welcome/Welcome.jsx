@@ -33,14 +33,14 @@ function Welcome() {
       nickname,
       profileImage: images.find(img => img.id === selectedImage)?.src || "",
     });
-    navigate('/profile');
+    setTimeout(() => navigate('/profile'), 1000);
   };
     
   return (
     <div className="welcome-page">
       <form onSubmit={handleSubmit} className="form">
         {/* Title */}
-        <h1>LessMatch</h1>
+        <h1 className='vanish' >LessMatch</h1>
 
         {/* Profile Images */}
         <div className="swiper-container">
@@ -56,6 +56,7 @@ function Welcome() {
               <SwiperSlide key={image.id}>
                 <Frame
                   src={image.src}
+                  text={nickname}
                   alt={`Profile ${image.id}`}
                   isSelected={image.id === selectedImage} // Pasamos si es seleccionada
                 />
@@ -74,7 +75,7 @@ function Welcome() {
         />
 
         {/* Submit */}
-        <Button type="submit" text="Continue" disabled={!nickname} />
+        <Button className='primary vanish' type="submit" text="Continue" disabled={!nickname} />
       </form>
     </div>
   );
