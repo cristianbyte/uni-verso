@@ -6,15 +6,14 @@ const ErrorPage = () => {
   return (
     <div className="error-container">
       <h1>404</h1>
-      <h2>Página no encontrada</h2>
-      <p>Parece que la canción que buscas no está en nuestra playlist.</p>
+      <h2>Page not found</h2>
       
       <div className="error-image">
         <span className="emoji">🎵❓</span>
       </div>
       
       <div className="navigation">
-        <Link to="/" className="nav-link">Volver al inicio</Link>
+        <Link to="/" className="nav-link">Back to home</Link>
       </div>
     </div>
   );

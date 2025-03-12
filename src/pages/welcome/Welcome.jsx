@@ -1,5 +1,6 @@
-import { useContext, useState, useCallback } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { v4 as uuidv4 } from 'uuid';
 import { EffectCards } from 'swiper/modules';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +14,13 @@ function Welcome() {
   const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(1);
+
+  useEffect(() => {
+    if (user && user.nickname && user.profileImage) {
+      navigate('/profile');
+    }
+  }, [user, navigate]);
+
 
   const images = [
     { id: 1, src: "/images/pikachu.png" },
@@ -28,13 +36,27 @@ function Welcome() {
     
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUser({
-      ...user,
-      nickname,
-      profileImage: images.find(img => img.id === selectedImage)?.src || "",
-    });
-    setTimeout(() => navigate('/profile'), 1000);
+    const myuuid = uuidv4();
+    const selectedImageSrc = images.find(img => img.id === selectedImage)?.src;
+  
+    const elements = document.getElementsByClassName('vanish');
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.animation = 'vanish .4s ease-out';
+    }
+  
+    if (selectedImageSrc) {
+      setUser({
+        ...user,
+        nickname,
+        myuuid,
+        profileImage: selectedImageSrc,
+      });
+    }
+    const timer = setTimeout(() => {
+      navigate('/profile');
+    }, 1000); 
   };
+  
     
   return (
     <div className="welcome-page">
@@ -49,16 +71,17 @@ function Welcome() {
             effect={'cards'}
             grabCursor={true}
             modules={[EffectCards]}
-            className="mySwiper"
-            onSlideChange={handleSlideChange} // Usamos nuestra función definida aquí
+            className="mySwiper vanish"
+            onSlideChange={handleSlideChange}
           >
             {images.map((image) => (
               <SwiperSlide key={image.id}>
                 <Frame
+                  className='vanish'
                   src={image.src}
                   text={nickname}
                   alt={`Profile ${image.id}`}
-                  isSelected={image.id === selectedImage} // Pasamos si es seleccionada
+                  isSelected={image.id === selectedImage}
                 />
               </SwiperSlide>
             ))}
@@ -68,6 +91,7 @@ function Welcome() {
         {/* NickName */}
         <input
           type="text"
+          className='vanish'
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           placeholder="Nickname"

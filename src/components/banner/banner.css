@@ -1,0 +1,31 @@
+.banner{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 20vh;
+    top: 0;
+    color: var(--color-background);
+    background-color: var(--color-main);
+}
+
+.banner_options{
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    margin: .6rem;
+    gap: .6rem;
+    position: absolute;
+    right: 0;
+    opacity: .6;
+    top: 0;
+}
+
+.banner_options svg{
+    cursor: pointer;
+    background-color: var(--color-background);
+    padding: .2rem;
+    border-radius: 10px;
+    color: var(--color-main);
+}

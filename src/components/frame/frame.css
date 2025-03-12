@@ -4,6 +4,7 @@
     background-color: var(--color-background);
     padding: 10%;
     display: flex;
+    border-radius: var(--border-radius);
     flex-direction: column;
     justify-content: space-between;
 }

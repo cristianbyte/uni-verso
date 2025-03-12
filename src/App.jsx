@@ -5,6 +5,7 @@ import Profile from './pages/profile/Profile';
 import Welcome from './pages/welcome/Welcome';
 
 function App() {
+
   return (
     <BrowserRouter>
       <UserProvider>
