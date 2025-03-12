@@ -15,13 +15,6 @@ function Welcome() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(1);
 
-  useEffect(() => {
-    if (user && user.nickname && user.profileImage) {
-      navigate('/profile');
-    }
-  }, [user, navigate]);
-
-
   const images = [
     { id: 1, src: "/images/pikachu.png" },
     { id: 2, src: "/images/spider.png" },
@@ -38,24 +31,34 @@ function Welcome() {
     e.preventDefault();
     const myuuid = uuidv4();
     const selectedImageSrc = images.find(img => img.id === selectedImage)?.src;
-  
+    
     const elements = document.getElementsByClassName('vanish');
     for (let i = 0; i < elements.length; i++) {
       elements[i].style.animation = 'vanish .4s ease-out';
     }
-  
+    
+    const isRedirecting = true;
+    
     if (selectedImageSrc) {
       setUser({
         ...user,
         nickname,
         myuuid,
         profileImage: selectedImageSrc,
+        _isRedirectingFromSubmit: true 
       });
     }
-    const timer = setTimeout(() => {
+    
+    setTimeout(() => {
       navigate('/profile');
-    }, 1000); 
+    }, 400);
   };
+  
+  useEffect(() => {
+    if (user && user.nickname && user.profileImage && !user._isRedirectingFromSubmit) {
+      navigate('/profile');
+    }
+  }, [user, navigate]);
   
     
   return (
