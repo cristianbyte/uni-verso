@@ -5,7 +5,8 @@ import './button.css'
 
 const Button = ({ 
   text, 
-  icon, 
+  icon,
+  handleFunc,
   to, 
   type = "button", 
   className = "button-primary",
@@ -15,9 +16,10 @@ const Button = ({
   const buttonSound = useSound('button');
 
   const handleClick = (e) => {
+    if (handleFunc) handleFunc();
+    buttonSound.play();
     if (to) {
       // Apply effect
-      buttonSound.play();
       vanish();
       setTimeout(() => {
         navigate(to);

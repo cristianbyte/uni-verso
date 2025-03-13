@@ -2,25 +2,23 @@
     width: 100dvw;
     height: 100dvh;
     display: flex;
-    justify-content: start;
     align-items: center;
     flex-direction: column;
 }
 
 .profile__frame{
-    margin-top: max(8vh, 8vw);
-    border-radius: var(--border-radius);
-    width: 40%;
+    top: 5%;
+    position: absolute;
+    width: 45%; 
 }
 
 .profile__options{
     display: flex;
-    margin: 10vh;
     justify-content: center;
     flex-direction: column;
     gap: 5vh;
     width: 70%;
-    height: auto;
+    height: 80dvh;
 }
 
 @media (orientation: landscape){

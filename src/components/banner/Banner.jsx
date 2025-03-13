@@ -1,8 +1,9 @@
-import { PencilLine, LogOut } from 'lucide-react';
+import { PencilLine, LogOut, Volume2 } from 'lucide-react';
+import { UserContext } from '../../context/UserContext';
+import Frame from '../frame/Frame';
 import './banner.css';
 
-const Banner = ({ viewText }) => {
-
+const Banner = ({ viewText, options=[true,true,true] }) => {
     const logOut = () => {
         let confirm = window.confirm('Are you sure you want to log out?\nAll your data will be lost');
         if (!confirm) return;
@@ -21,9 +22,9 @@ const Banner = ({ viewText }) => {
         <div className="banner">
             <h1>{viewText}</h1>
             <div className="banner_options">
-                <PencilLine size={35} onClick={changeName} aria-label="Edit name" />
-                <LogOut size={35} onClick={logOut} aria-label="Log Out" />
-                {/* <Volume2 /> */}
+                {options[0] && <LogOut size={35} onClick={logOut} aria-label="Log Out" />}
+                {options[1] && <PencilLine size={35} onClick={changeName} aria-label="Edit name" />}
+                {options[2] && <Volume2 size={35} />}
             </div>
         </div>
     );

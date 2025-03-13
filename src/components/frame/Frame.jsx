@@ -1,6 +1,6 @@
 import './frame.css';
 
-const Frame = ({ src, text }) => {
+const Frame = ({ src, text, fontSize}) => {
 
     const formatName = (fullName) => {
         const nameParts = fullName.trim().split(' ');
@@ -22,9 +22,11 @@ const Frame = ({ src, text }) => {
                 alt="frame"
                 className="frame__image" 
             />
-            <h3 className='frame__text'>
-                {formatName(text)}
-            </h3>
+            {text && (
+                <h3 className="frame__text" style={{ fontSize }}>
+                    {formatName(text)}
+                </h3>
+            )}
         </div>
     );
 }

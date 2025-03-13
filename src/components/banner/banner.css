@@ -1,5 +1,4 @@
 .banner{
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +12,7 @@
 .banner_options{
     display: flex;
     justify-content: center;
-    flex-direction: column-reverse;
+    flex-direction: column;
     margin: .6rem;
     gap: .6rem;
     position: absolute;

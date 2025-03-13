@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { v4 as uuidv4 } from 'uuid';
 import { EffectCards } from 'swiper/modules';
@@ -15,6 +15,7 @@ function Welcome() {
   const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(1);
+  const buttonRef = useRef(null);
 
   const images = [
     { id: 1, src: "/images/pikachu.png" },
@@ -28,12 +29,9 @@ function Welcome() {
     setSelectedImage(swiper.activeIndex + 1); // Sumamos 1 porque el índice de Swiper empieza desde 0
   };
     
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    vanish();
+  const handleSubmit = () => {
     const myuuid = uuidv4();
     const selectedImageSrc = images.find(img => img.id === selectedImage)?.src;
-    
     const isRedirecting = true;
     
     if (selectedImageSrc) {
@@ -41,26 +39,21 @@ function Welcome() {
         ...user,
         nickname,
         myuuid,
-        profileImage: selectedImageSrc,
-        _isRedirectingFromSubmit: true 
+        profileImage: selectedImageSrc
       });
     }
-    
-    setTimeout(() => {
-      navigate('/profile');
-    }, 400);
   };
   
   useEffect(() => {
-    if (user && user.nickname && user.profileImage && user._isRedirectingFromSubmit) {
+    if (user && user.nickname && user.profileImage) {
       navigate('/profile');
     }
-  }, [user, navigate]);
+  }, []);
   
     
   return (
     <div className="welcome-page vanish">
-      <form onSubmit={handleSubmit} className="form">
+      <form className="form">
         {/* Title */}
         <h1 >LessMatch</h1>
 
@@ -90,14 +83,26 @@ function Welcome() {
         {/* NickName */}
         <input
           type="text"
+          className='input'
+          placeholder="Nickname"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
-          placeholder="Nickname"
           required
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              document.querySelector('.primary')?.click();
+            }
+          }}
         />
 
         {/* Submit */}
-        <Button className='primary' type='submit' text="Continue" disabled={!nickname} />
+        <Button className='primary'
+          ref={buttonRef}
+          handleFunc={handleSubmit} 
+          text={"Continue"}
+          disabled={!nickname} 
+          to={'/profile'}/>
       </form>
     </div>
   );
