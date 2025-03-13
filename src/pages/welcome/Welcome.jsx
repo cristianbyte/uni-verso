@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { EffectCards } from 'swiper/modules';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { vanish } from '../../utils/vanishEffect';
 import Frame from '../../components/frame/Frame';
 import Button from '../../components/button/Button';
 import 'swiper/swiper-bundle.css';
@@ -29,13 +30,9 @@ function Welcome() {
     
   const handleSubmit = (e) => {
     e.preventDefault();
+    vanish();
     const myuuid = uuidv4();
     const selectedImageSrc = images.find(img => img.id === selectedImage)?.src;
-    
-    const elements = document.getElementsByClassName('vanish');
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.animation = 'vanish .4s ease-out';
-    }
     
     const isRedirecting = true;
     
@@ -55,17 +52,17 @@ function Welcome() {
   };
   
   useEffect(() => {
-    if (user && user.nickname && user.profileImage && !user._isRedirectingFromSubmit) {
+    if (user && user.nickname && user.profileImage && user._isRedirectingFromSubmit) {
       navigate('/profile');
     }
   }, [user, navigate]);
   
     
   return (
-    <div className="welcome-page">
+    <div className="welcome-page vanish">
       <form onSubmit={handleSubmit} className="form">
         {/* Title */}
-        <h1 className='vanish' >LessMatch</h1>
+        <h1 >LessMatch</h1>
 
         {/* Profile Images */}
         <div className="swiper-container">
@@ -74,13 +71,12 @@ function Welcome() {
             effect={'cards'}
             grabCursor={true}
             modules={[EffectCards]}
-            className="mySwiper vanish"
+            className="mySwiper"
             onSlideChange={handleSlideChange}
           >
             {images.map((image) => (
               <SwiperSlide key={image.id}>
                 <Frame
-                  className='vanish'
                   src={image.src}
                   text={nickname}
                   alt={`Profile ${image.id}`}
@@ -94,7 +90,6 @@ function Welcome() {
         {/* NickName */}
         <input
           type="text"
-          className='vanish'
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           placeholder="Nickname"
@@ -102,7 +97,7 @@ function Welcome() {
         />
 
         {/* Submit */}
-        <Button className='primary vanish' type="submit" text="Continue" disabled={!nickname} />
+        <Button className='primary' type='submit' text="Continue" disabled={!nickname} />
       </form>
     </div>
   );

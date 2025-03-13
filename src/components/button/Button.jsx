@@ -1,26 +1,27 @@
 import { useNavigate } from 'react-router-dom';
+import { useSound } from '../../hooks/useSound';
+import { vanish } from '../../utils/vanishEffect.js'
 import './button.css'
 
 const Button = ({ 
   text, 
   icon, 
-  onClick, 
   to, 
   type = "button", 
   className = "button-primary",
   disabled = false
 }) => {
   const navigate = useNavigate();
+  const buttonSound = useSound('button');
 
   const handleClick = (e) => {
     if (to) {
-      // Navigate to specified route
-      navigate(to);
-    }
-    
-    // If onClick function provided, execute it
-    if (onClick) {
-      onClick(e);
+      // Apply effect
+      buttonSound.play();
+      vanish();
+      setTimeout(() => {
+        navigate(to);
+      }, 400);
     }
   };
 

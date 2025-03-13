@@ -1,5 +1,5 @@
 .button-primary{
-    transition: .3s ease;
+    transition: .2s ease;
     font-size: 1.5rem;
     background-color: var(--color-background);
     color: var(--color-primary);
@@ -18,7 +18,7 @@
 }
 
 button:disabled{
-    transition: .3s ease;
+    transition: .2s ease;
     filter: opacity(50%);
     border-color: var(--color-shadow);
     color: var(--color-shadow);

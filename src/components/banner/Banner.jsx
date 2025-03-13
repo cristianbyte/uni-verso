@@ -21,8 +21,9 @@ const Banner = ({ viewText }) => {
         <div className="banner">
             <h1>{viewText}</h1>
             <div className="banner_options">
-                <PencilLine size={35} onClick={changeName} />
-                <LogOut size={35} onClick={logOut} />
+                <PencilLine size={35} onClick={changeName} aria-label="Edit name" />
+                <LogOut size={35} onClick={logOut} aria-label="Log Out" />
+                {/* <Volume2 /> */}
             </div>
         </div>
     );

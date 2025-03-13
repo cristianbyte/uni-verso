@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
       nickname: '',
       myuuid: '',
       profileImage: null,
+      soundEnabled: true,
     };
   });
 

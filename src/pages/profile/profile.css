@@ -13,6 +13,16 @@
     width: 40%;
 }
 
+.profile__options{
+    display: flex;
+    margin: 10vh;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5vh;
+    width: 70%;
+    height: auto;
+}
+
 @media (orientation: landscape){
     .profile__frame{
         width: 20%;
