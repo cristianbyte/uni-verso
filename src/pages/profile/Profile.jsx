@@ -11,7 +11,8 @@ function Profile() {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-    // const bgMusic = useSound('stateGame', { autoPlay: true, loop: true, volume: 0.7 });
+    const bgMusic = useSound('stateGame', { autoPlay: true, loop: true, volume: 0.3 });
+    bgMusic.play();
 
     useEffect(() => {
       if (!user || !user.nickname || !user.profileImage) {
@@ -21,7 +22,7 @@ function Profile() {
 
     return (
       <div className='profile vanish'>
-        <Banner options={[true,true,true]}/>
+        <Banner options={[true,true,true,false]}/>
         <div className="profile__frame">
           <Frame src={user.profileImage} text={user.nickname} />
         </div>

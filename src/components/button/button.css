@@ -17,6 +17,11 @@
     color: var(--color-primary);
 }
 
+.abs-end{
+    position: absolute;
+    bottom: 0;
+}
+
 button:disabled{
     transition: .2s ease;
     filter: opacity(50%);

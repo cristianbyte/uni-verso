@@ -19,6 +19,11 @@
     src: url('./assets/fonts/Poppins-Bold.ttf');
 }
 
+@font-face {
+    font-family: RobotoCond;
+    src: url('./assets/fonts/RobotoCondensed.ttf');
+}
+
 * {
     font-family: 'PoppinsBold';
 	box-sizing: border-box;

@@ -1,7 +1,7 @@
 .banner{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     width: 100vw;
     height: 20vh;
     top: 0;
@@ -9,16 +9,23 @@
     background-color: var(--color-main);
 }
 
+.banner__text{
+    padding-top: 5%;
+}
+
 .banner_options{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: flex-end;
     margin: .6rem;
     gap: .6rem;
     position: absolute;
     right: 0;
     opacity: .6;
     top: 0;
+    z-index: 1;
+    width: 100%;
 }
 
 .banner_options svg{
@@ -27,4 +34,11 @@
     padding: .2rem;
     border-radius: 10px;
     color: var(--color-main);
+}
+
+.banner__left{
+    position: absolute;
+    left: 1.5rem;
+    top: 0;
+    transform: scale(1.2);
 }

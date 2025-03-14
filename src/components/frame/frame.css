@@ -8,6 +8,7 @@
     width: 100%;
     background-color: var(--color-background);
     border-radius: var(--border-radius);
+    z-index: 2;
 }
 
 .frame__image{

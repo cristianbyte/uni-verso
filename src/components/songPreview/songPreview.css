@@ -1,0 +1,51 @@
+.songPrev{
+    height: 40vh;
+    margin-top: 1rem;
+    width: 100vw;
+}
+
+.songPreview{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5vw;
+    height: 10vh;
+}
+
+.songPrev__text{
+    width: max-content;
+    line-height: 1rem;
+}
+
+.songPrev__info{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    width: min-content;
+}
+
+.songPrev__img{
+    aspect-ratio: 1;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.songPrev__text{
+    text-align: center;
+}
+
+.songPrev__lyrics{
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-top: 5px solid var(--color-shadow);
+    border-bottom: 5px solid var(--color-shadow);
+    font-family: 'RobotoCond';
+    height: 70%;
+    width: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+}

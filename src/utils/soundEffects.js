@@ -1,9 +1,9 @@
 const sounds = {
-  stateMatch: new Audio('/assets/state-match.wav'),
-  stateGame: new Audio('/assets/state-game.wav'),
+  stateMatch: new Audio('/assets/state-match.mp3'),
+  stateGame: new Audio('/assets/state-game.mp3'),
   button: new Audio('/assets/button.mp3'),
-  alert: new Audio('/assets/alert.wav'),
-  final: new Audio('/assets/final.wav')
+  alert: new Audio('/assets/alert.mp3'),
+  final: new Audio('/assets/final.mp3')
 };
 
 /**
