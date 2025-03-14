@@ -8,6 +8,7 @@ const Button = ({
   icon,
   handleFunc,
   to, 
+  ref,
   type = "button", 
   className = "button-primary",
   disabled = false
@@ -29,6 +30,7 @@ const Button = ({
 
   return (
     <button
+      ref={ref}
       type={type}
       onClick={handleClick}
       className={`button-${className}`}

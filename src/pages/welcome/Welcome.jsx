@@ -89,9 +89,9 @@ function Welcome() {
           onChange={(e) => setNickname(e.target.value)}
           required
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !e.disabled && nickname) {
               e.preventDefault();
-              document.querySelector('.primary')?.click();
+              buttonRef.current.click();
             }
           }}
         />

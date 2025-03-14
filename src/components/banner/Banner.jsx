@@ -23,7 +23,6 @@ const Banner = ({ viewText, options=[true,true,true,false], back }) => {
         let confirm = window.confirm('Are you sure you want to log out?\nAll your data will be lost');
         if (!confirm) return;
         localStorage.removeItem('user');
-        navigate('/');
         window.location.reload();
         
     }

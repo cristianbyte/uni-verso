@@ -10,6 +10,7 @@ import Frame from '../../components/frame/Frame';
 import Button from '../../components/button/Button';
 import Banner from '../../components/banner/Banner';
 import './createGame.css';
+import IframeDeezer from '../../components/iframe/iframeDeezer';
 
 const CreateGame = () => {
 
@@ -107,6 +108,11 @@ const CreateGame = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     required
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSubmit();
+                        }
+                    }}
                 />
             
                 {songSelected && song ? (
@@ -133,10 +139,10 @@ const CreateGame = () => {
                             </div>
                         )
                     )}
-
-                <Button className='primary abs-end' text="Search song" disabled={!search} handleFunc={handleSubmit} />
-
             </div>
+            {/* <IframeDeezer trackId={song.id} /> */}
+            <Button className='primary abs-end' text="Select song" disabled={!songSelected} />
+        
         </div>
     );
 }

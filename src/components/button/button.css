@@ -19,7 +19,7 @@
 
 .abs-end{
     position: absolute;
-    bottom: 0;
+    bottom: 5vh;
 }
 
 button:disabled{
