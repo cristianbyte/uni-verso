@@ -3,6 +3,7 @@ import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { useSound } from '../../hooks/useSound';
 import { vanish } from '../../utils/vanishEffect';
+import { processLyrics } from '../../utils/processLyrics.js';
 import fetchSuggestions from '../../services/fetchSuggestion';
 import fetchLyrics from '../../services/fetchLyrics';
 import SongPreview from '../../components/songPreview/SongPreview';
@@ -11,6 +12,7 @@ import Button from '../../components/button/Button';
 import Banner from '../../components/banner/Banner';
 import './createGame.css';
 import IframeDeezer from '../../components/iframe/iframeDeezer';
+import SongPlayer from '../../components/songPlayer/SongPlayer';
 
 const CreateGame = () => {
 
@@ -67,9 +69,10 @@ const CreateGame = () => {
                 setLoading(true);
                 try {
                     const lyrics = await fetchLyrics(song.artist.name, song.title);
+                    const verseList = processLyrics(lyrics);
                     setSong(prevSong => ({
                         ...prevSong,
-                        lyrics: lyrics
+                        lyrics: verseList
                     }));
                 } catch (err) {
                     console.log("Error fetching lyrics: ", err.message);
@@ -141,6 +144,9 @@ const CreateGame = () => {
                     )}
             </div>
             {/* <IframeDeezer trackId={song.id} /> */}
+            { songSelected && song && (
+                <SongPlayer url={song.preview} />
+            )}
             <Button className='primary abs-end' text="Select song" disabled={!songSelected} />
         
         </div>

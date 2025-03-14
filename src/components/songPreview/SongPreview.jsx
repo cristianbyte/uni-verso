@@ -1,7 +1,11 @@
 import './songPreview.css'
 
 const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics, isSample}) => {
-    
+
+    console.log("lyrics complete: ", lyrics);
+
+    const formattedLyrics = Array.isArray(lyrics) ? lyrics.join('\n') : '';
+
     return (
         <div className='songPrev' >
             <div className="songPreview">
@@ -15,7 +19,7 @@ const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics, isSample})
                 </div>
             </div>
             <pre className="songPrev__lyrics">
-                {lyrics}
+                {formattedLyrics}
             </pre>
         </div>
     );

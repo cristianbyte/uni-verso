@@ -1,0 +1,14 @@
+.custom-audio-player {
+    width: 100%;
+    border-radius: 8px;
+    background-color: var(--color-background);
+    padding: 5px;
+}
+  
+.custom-audio-player::-webkit-media-controls {
+    background-color: transparent;
+}
+  
+.custom-audio-player::-webkit-media-controls-panel {
+    background-color: var(--color-background);
+}
