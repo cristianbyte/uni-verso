@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { EffectCards } from 'swiper/modules';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { createUser } from '../../services/userService/createUser';
 import { vanish } from '../../utils/vanishEffect';
 import Frame from '../../components/frame/Frame';
 import Button from '../../components/button/Button';
@@ -29,18 +30,30 @@ function Welcome() {
     setSelectedImage(swiper.activeIndex + 1); // Sumamos 1 porque el índice de Swiper empieza desde 0
   };
     
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const myuuid = uuidv4();
     const selectedImageSrc = images.find(img => img.id === selectedImage)?.src;
     const isRedirecting = true;
     
-    if (selectedImageSrc) {
+    // Handle request to the server.
+    try {
+      const userRequest = {
+        id: myuuid,
+        name: nickname,
+        icon: selectedImageSrc
+      };
+      const result = await createUser(userRequest);
       setUser({
         ...user,
         nickname,
         myuuid,
         profileImage: selectedImageSrc
       });
+      console.log('User created successfully:', result);
+      navigate('/profile');
+    } catch (error) {
+      console.error('Failed to create user: ', error.mesage);
+      setUser('');
     }
   };
   
@@ -99,10 +112,10 @@ function Welcome() {
         {/* Submit */}
         <Button className='primary'
           ref={buttonRef}
-          handleFunc={handleSubmit} 
+          onClick={handleSubmit} 
           text={"Continue"}
           disabled={!nickname} 
-          to={'/profile'}/>
+          />
       </form>
     </div>
   );

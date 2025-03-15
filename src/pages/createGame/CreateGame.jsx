@@ -25,13 +25,11 @@ const CreateGame = () => {
     const navigate = useNavigate();
     
     const buttonSound = useSound('button');
-    //const bgMusic = useSound('stateMatch', { autoPlay: true, loop: true, volume: 0.3 });
-    // Play background music when component mounts
-    // useEffect(() => {
-    //     bgMusic.play();
-    //     // Cleanup when component unmounts
-    //     return () => bgMusic.stop();
-    // }, []);
+
+    const handleRequest = () => {
+        // Create pairting code
+        console.log("IMplementation");
+    };
 
     useEffect(() => {
         if (!user || !user.nickname || !user.profileImage) {
@@ -98,7 +96,7 @@ const CreateGame = () => {
 
     return (
         <div className='create vanish'>
-            <Banner viewText='New Game' options={[true,false,true,true]} back={handleBack} />
+            <Banner viewText='New Game' back={handleBack} />
             <div className="create__frame">
                 <Frame src={user.profileImage} text={user.nickname} fontSize={"1rem"} />
                 <Frame src={"/images/question.png"} />
@@ -123,7 +121,8 @@ const CreateGame = () => {
                             codImg={song.md5_image}
                             title={song.title} 
                             artist={song.artist.name} 
-                            lyrics={song.lyrics || "Loading lyrics..."} 
+                            lyrics={song.lyrics || "Loading lyrics..."}
+                            verseCount={song.lyrics.length}
                         />
                     ) : loading ? (
                         <p>Loading...</p>
@@ -147,7 +146,7 @@ const CreateGame = () => {
             { songSelected && song && (
                 <SongPlayer url={song.preview} />
             )}
-            <Button className='primary abs-end' text="Select song" disabled={!songSelected} />
+            <Button className='primary abs-end' text="Select song" disabled={!songSelected} onClick={handleRequest} />
         
         </div>
     );

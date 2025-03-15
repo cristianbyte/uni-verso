@@ -6,7 +6,7 @@ import './button.css'
 const Button = ({ 
   text, 
   icon,
-  handleFunc,
+  onClick, 
   to, 
   ref,
   type = "button", 
@@ -17,7 +17,7 @@ const Button = ({
   const buttonSound = useSound('button');
 
   const handleClick = (e) => {
-    if (handleFunc) handleFunc();
+    if (onClick) onClick();
     buttonSound.play();
     if (to) {
       // Apply effect
