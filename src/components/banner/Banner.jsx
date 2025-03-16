@@ -1,4 +1,5 @@
 import { PencilLine, LogOut, Volume2, VolumeX, ArrowLeft,RefreshCcw } from 'lucide-react';
+import { deleteUser } from '../../services/userService/deleteUser';
 import { updateUser } from '../../services/userService/updateUser';
 import { getUser } from '../../services/userService/getUser';
 import { UserContext } from '../../context/UserContext';
@@ -12,6 +13,7 @@ const Banner = ({ viewText, options=[true,true,true,false], back }) => {
     const navigate = useNavigate();
 
     const handleRefresh = async () => {
+        // implement when the user does not exist
               const result = await getUser(user);
               setUser({
                 ...user,
@@ -30,13 +32,30 @@ const Banner = ({ viewText, options=[true,true,true,false], back }) => {
         setUser(updatedUser);
     }
     
-    const logOut = () => {
+    const logOut = async () => {
         let confirm = window.confirm('Are you sure you want to log out?\nAll your data will be lost');
         if (!confirm) return;
-        localStorage.removeItem('user');
-        window.location.reload();
-        
-    }
+        try {
+            // setIsLoading(true);
+            
+            await deleteUser(user.myuuid);
+            
+            localStorage.removeItem('user');
+            
+            alert('Your account has been successfully deleted');
+            
+            window.location.reload();
+        } catch (error) {
+            console.error('Error during logout:', error);
+            
+            alert('There was a problem deleting your account. Please try again later.');
+            
+            // localStorage.removeItem('user');
+            // window.location.reload();
+        } finally {
+            // setIsLoading(false);
+        }
+    };
     
     const changeName = async () => {
         let newName = prompt('Enter your new name', user.nickname);
