@@ -50,7 +50,6 @@ function Welcome() {
         profileImage: selectedImageSrc
       });
       console.log('User created successfully:', result);
-      navigate('/profile');
     } catch (error) {
       console.error('Failed to create user: ', error.mesage);
       setUser('');
@@ -112,6 +111,7 @@ function Welcome() {
         {/* Submit */}
         <Button className='primary'
           ref={buttonRef}
+          to={'/profile'}
           onClick={handleSubmit} 
           text={"Continue"}
           disabled={!nickname} 

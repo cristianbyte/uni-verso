@@ -8,13 +8,20 @@ import { useContext } from 'react';
 import Frame from '../frame/Frame';
 import './banner.css';
 
-const Banner = ({ viewText, options=[true,true,true,false], back }) => {
+const Banner = ({ viewText, back }) => {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleRefresh = async () => {
         // implement when the user does not exist
               const result = await getUser(user);
+              if (result.statusCode === 404) {
+                alert('User does not exist');
+                localStorage.removeItem('user');
+                setUser(null);
+                navigate('/');
+                return;
+              }
               setUser({
                 ...user,
                 nickname : result.name,
@@ -78,8 +85,12 @@ const Banner = ({ viewText, options=[true,true,true,false], back }) => {
         <div className="banner">
             <h1 className='banner__text'>{viewText}</h1>
             <div className="banner_options">
-                 <LogOut size={35} onClick={logOut} aria-label="Log Out" />
-                <PencilLine size={35} onClick={changeName} aria-label="Edit name" />
+                <LogOut size={35} onClick={logOut} aria-label="Log Out" />
+                {
+                     window.location.pathname == "/profile" ? 
+                     <PencilLine size={35} onClick={changeName} aria-label="Edit name" /> : null
+                }
+
                 {
                     user.soundEnabled ? 
                     <Volume2 size={35} onClick={handleSound} aria-label="Sound On" /> : 

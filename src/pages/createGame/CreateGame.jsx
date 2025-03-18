@@ -122,7 +122,7 @@ const CreateGame = () => {
                             title={song.title} 
                             artist={song.artist.name} 
                             lyrics={song.lyrics || "Loading lyrics..."}
-                            verseCount={song.lyrics.length}
+                            verseCount={song.lyrics ? song.lyrics.length : 0}
                         />
                     ) : loading ? (
                         <p>Loading...</p>

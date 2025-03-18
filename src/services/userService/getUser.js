@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const API_URL = 'http://localhost:8080/api/v1';
 
 export const getUser = async (userData) => {
@@ -7,16 +5,24 @@ export const getUser = async (userData) => {
         if (!userData || !userData.myuuid) {
             throw new Error('User ID is required');
         }
-        const response = await axios.get(`${API_URL}/user/${userData.myuuid}`, {
+        
+        const response = await fetch(`${API_URL}/user/${userData.myuuid}`, {
+            method: 'GET',
             headers: {
-            'Authorization': `Bearer ${userData.myuuid}`,
-            'Content-Type': 'application/json',
-            'accept': '*/*'
+                'Authorization': `Bearer ${userData.myuuid}`,
+                'Content-Type': 'application/json',
+                'Accept': '*/*'
             }
         });
-        return response.data;
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            console.log(data);
+        }
+        
+        return data;
     } catch (error) {
-        console.error('Error getting user:', error);
         throw error;
     }
 };
