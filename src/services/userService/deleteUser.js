@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:8080/api/v1';
+
 export const deleteUser = async (uuid) => {
     try {
         if (!uuid) {
@@ -13,15 +15,18 @@ export const deleteUser = async (uuid) => {
             }
         });
         
-        if (!response.ok) {
-            const data = await response.json();
-            console.log(data);
-            throw new Error(`Unexpected response status: ${response.status}`);
+        if (response.status === 204 || response.status === 404) {
+            return true;
         }
         
-        return true;
+        if (response.headers.get('content-length') > 0) {
+            const data = await response.json();
+            console.log(data);
+        }
+        
+        throw new Error(`Unexpected response status: ${response.status}`);
     } catch (error) {
-        console.error('Error getting user:', error);
+        console.error('Error deleting user:', error);
         throw error;
     }
 };

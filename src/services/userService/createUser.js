@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:8080/api/v1';
+
 export const createUser = async (userData) => {
   try {
       const response = await fetch(`${API_URL}/user`, {
