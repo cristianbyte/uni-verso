@@ -1,18 +1,23 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api/v1';
-
 export const createUser = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/user`, userData, {
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': '*/*'
+      const response = await fetch(`${API_URL}/user`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': '*/*'
+          },
+          body: JSON.stringify(userData)
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+          console.log(data);
       }
-    });
-    return response.data;
+      
+      return data;
   } catch (error) {
-    console.error('Error creating user:', error);
-    throw error;
+      console.error('Error creating user:', error);
+      throw error;
   }
 };
