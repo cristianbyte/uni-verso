@@ -2,8 +2,6 @@ import './songPreview.css'
 
 const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics, isSample}) => {
 
-    console.log("lyrics complete: ", lyrics);
-
     const formattedLyrics = Array.isArray(lyrics) ? lyrics.join('\n') : '';
 
     return (

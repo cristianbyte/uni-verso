@@ -17,13 +17,16 @@ const Button = ({
   const buttonSound = useSound('button');
 
   const handleClick = (e) => {
+    if(disabled) return;
     if (onClick) onClick();
     buttonSound.play();
     if (to) {
       // Apply effect
       vanish();
+      disabled = true;
       setTimeout(() => {
         navigate(to);
+
       }, 400);
     }
   };
