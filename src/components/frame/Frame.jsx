@@ -1,6 +1,6 @@
 import './frame.css';
 
-const Frame = ({ src, text, fontSize}) => {
+const Frame = ({ src = './images/question.png', text, fontSize}) => {
 
     const formatName = (fullName) => {
         const nameParts = fullName.trim().split(' ');
