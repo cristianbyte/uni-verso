@@ -40,7 +40,7 @@ const Button = ({
       disabled={disabled}
     >
       {icon && <span className="button__icon" >{icon}</span>}
-      {text && <span >{text}</span>}
+      {text && <p>{text}</p>}
     </button>
   );
 };

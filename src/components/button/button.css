@@ -1,4 +1,4 @@
-.button-primary{
+.button-primary, .button-secondary {
     transition: .2s ease;
     font-size: 1.5rem;
     background-color: var(--color-background);
@@ -11,10 +11,20 @@
     cursor: pointer;
 }
 
-.button-primary:hover{
+.button-primary:hover, .button-secondary:hover{
     transform: translateX(-5px) translateY(5px);
     box-shadow: none;
     color: var(--color-primary);
+}
+
+.button-secondary{
+    width: 100%;
+    padding: 0 .5rem;
+    font-size: 1.2rem;
+}
+
+.button-secondary span{
+    width: 100%;
 }
 
 .abs-end{
