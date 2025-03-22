@@ -22,10 +22,12 @@ const Banner = ({ viewText, back }) => {
                 navigate('/');
                 return;
               }
+              console.log(result);
               setUser({
                 ...user,
                 nickname : result.name,
-                profileImage: result.icon
+                profileImage: result.icon,
+                pairings : result.pairings,
               });
     }
     

@@ -1,10 +1,12 @@
 .banner{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: start;
     width: 100vw;
     height: 20vh;
     top: 0;
+    margin-bottom: 15vh;
     color: var(--color-background);
     background-color: var(--color-main);
 }
