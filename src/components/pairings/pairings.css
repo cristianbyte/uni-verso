@@ -1,0 +1,46 @@
+.pairings {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2vh;
+}
+
+.pairings__item{
+    width: 100%;
+}
+
+.pairings__list{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.pairing{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2vw;
+}
+
+
+.pairing__frame{
+    width: 10vh;
+    height: 13vh;
+}
+
+.pairing__song{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1vw;
+
+    h3{
+        font-size: .5rem;
+    }
+}
+
+.song__img{
+    width: 15vw;
+}

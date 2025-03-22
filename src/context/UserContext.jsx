@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
       myuuid: '',
       profileImage: null,
       soundEnabled: true,
+      pairings: [],
     };
   });
 

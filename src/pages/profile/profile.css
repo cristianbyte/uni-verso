@@ -21,6 +21,24 @@
     height: 80dvh;
 }
 
+.profile__options--game{
+    position: relative;
+    display: flex;
+    font-size: 1rem;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 5vw;
+    height: 8dvh;
+}
+
+.profile__content{
+    display: flex;
+    flex-direction: column;
+    padding: 0 5vw;
+    width: 100%;
+    gap: 2vh;
+}
+
 @media (orientation: landscape){
     .profile__frame{
         width: 20%;
