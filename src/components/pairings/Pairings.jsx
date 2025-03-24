@@ -1,5 +1,11 @@
+import { Copy, Play, Pause } from "lucide-react";
 import Frame from "../frame/Frame";
 import "./pairings.css";
+
+const handleCopy = (pairingCode) => {
+  navigator.clipboard.writeText(pairingCode);
+  alert("Copied");
+}
 
 const PairingItem = ({ pair }) => (
   <div className="pairing">
@@ -20,14 +26,22 @@ const PairingItem = ({ pair }) => (
       </div>
     </div>
 
-    <div 
-  className="song__info song__info-with-mask" 
-  style={{ backgroundImage: `url(${pair.song.albumImage})` }}
->
-  <p className="song__code">Code: {pair.pairingCode}</p>
-  <p className="song__title">{pair.song.title}</p>
-  <p className="song__artist">{pair.song.artist}</p>
-</div>
+    <div
+      className="song__info song__info-with-mask"
+      style={{ backgroundImage: `url(${pair.song.albumImage})` }}
+    >
+      <p className="song__code"
+        onClick={() => handleCopy(pair.pairingCode)}>
+        CODE: {pair.pairingCode}
+        <Copy />
+      </p>
+      <p className="song__title">
+        {pair.song.title} - {pair.song.artist}
+      </p>
+      <p className="song__artist"></p>
+      <Play />
+      <Pause />
+    </div>
   </div>
 );
 
