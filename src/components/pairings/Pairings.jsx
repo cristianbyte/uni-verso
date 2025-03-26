@@ -1,4 +1,5 @@
 import { Copy, Play, Pause } from "lucide-react";
+import SongPlayer from "../songPlayer/SongPlayer";
 import Frame from "../frame/Frame";
 import "./pairings.css";
 
@@ -39,8 +40,8 @@ const PairingItem = ({ pair }) => (
         {pair.song.title} - {pair.song.artist}
       </p>
       <p className="song__artist"></p>
-      <Play />
-      <Pause />
+      {pair.preview && console.log('Preview URL:', pair.preview)}
+      <SongPlayer url={pair.song.preview} />
     </div>
   </div>
 );
