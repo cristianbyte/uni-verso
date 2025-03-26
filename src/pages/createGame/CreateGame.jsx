@@ -11,9 +11,9 @@ import SongPreview from "../../components/songPreview/SongPreview";
 import Frame from "../../components/frame/Frame";
 import Button from "../../components/button/Button";
 import Banner from "../../components/banner/Banner";
-import "./createGame.css";
 import IframeDeezer from "../../components/iframe/iframeDeezer";
 import SongPlayer from "../../components/songPlayer/SongPlayer";
+import "./createGame.css";
 
 const CreateGame = () => {
   const { user } = useContext(UserContext);
@@ -28,9 +28,14 @@ const CreateGame = () => {
   const buttonSound = useSound("button");
 
   const handleRequest = async () => {
-    const response = await createPairing(user, song);
-    setPairingCode(response.pairingCode);
-    console.log(response.pairingCode);
+    try{
+      const response = await createPairing(user, song);
+      setPairingCode(response.pairingCode);
+      console.log(response.pairingCode);
+    }catch{
+      console.log("Error creating pairing");
+      setPairingCode("");
+    }
   };
 
   useEffect(() => {
@@ -142,7 +147,6 @@ const CreateGame = () => {
           )
         )}
       </div>
-      {/* <IframeDeezer trackId={song.id} /> */}
       {songSelected && song && <SongPlayer url={song.preview} />}
       <Button
         className="primary abs-end"

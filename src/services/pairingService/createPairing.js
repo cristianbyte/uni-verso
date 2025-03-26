@@ -13,7 +13,9 @@ export const createPairing = async (userData, song) => {
         "creatorUserId": userData.myuuid,
         "pairedUserId": null,
         "song": {
+          "id": song.id,
           "title": song.title,
+          "preview": song.preview,
           "artist": song.artist.name,
           "albumImage": `http://e-cdns-images.dzcdn.net/images/cover/${song.md5_image}/250x250.jpg`,
           "verseCount": song.lyrics.length
