@@ -34,7 +34,7 @@
 
 .pairing__frame,
 .pairing__frame--hide {
-    transition: .3s ease-out;
+    transition: .2s ease-out;
     width: 12vh;
     height: 15vh;
     z-index: 10;

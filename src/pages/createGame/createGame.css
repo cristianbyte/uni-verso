@@ -2,7 +2,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding-bottom: 10vh;
     align-items: center;
     height: 100dvh;
 }
@@ -15,7 +14,7 @@
     flex-direction: row;
     gap: 30vw;
     width: 100%;
-    padding: 12vw;
+    padding: 12vw 12vw 0  12vw;
 }
 
 .create__container{
@@ -23,7 +22,6 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    margin-top: 8vh;
     width: 70%;
     height: 50vh;
 }
