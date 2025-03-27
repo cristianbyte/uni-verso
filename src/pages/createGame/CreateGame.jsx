@@ -16,7 +16,7 @@ import SongPlayer from "../../components/songPlayer/SongPlayer";
 import "./createGame.css";
 
 const CreateGame = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [songSelected, setSongSelected] = useState(false);
@@ -30,8 +30,13 @@ const CreateGame = () => {
   const handleRequest = async () => {
     try{
       const response = await createPairing(user, song);
+      setUser({
+        ...user,
+        pairings: [...user.pairings, response]
+      })
       setPairingCode(response.pairingCode);
-      console.log(response.pairingCode);
+      console.log(response);
+      navigate('/profile')
     }catch{
       console.log("Error creating pairing");
       setPairingCode("");

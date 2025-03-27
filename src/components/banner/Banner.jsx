@@ -19,7 +19,6 @@ const Banner = ({ viewText, back }) => {
                 alert('User does not exist');
                 localStorage.removeItem('user');
                 setUser(null);
-                navigate('/');
                 return;
               }
               console.log(result);

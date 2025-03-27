@@ -2,7 +2,6 @@
     width: 100%;
     border-radius: 8px;
     background-color: var(--color-background);
-    padding: 5px;
     z-index: 10;
 }
   
