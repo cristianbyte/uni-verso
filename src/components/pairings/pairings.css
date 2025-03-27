@@ -9,12 +9,18 @@
     display: flex;
     flex-direction: column;
     gap: 2vh;
+    height: 45dvh;
+    outline: 5px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    width: 100%;
+    overflow-y: scroll;
 }
 
 .pairings__item {
     display: flex;
     width: 100%;
-    max-height: 15vh;
+    max-height: 17vh;
 }
 
 .pairing {
@@ -22,7 +28,7 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    gap: 10vw;
+    gap: 5vw;
     height: 14vh;
 }
 
@@ -43,10 +49,13 @@
 .pairing__frame--hide {
     position: absolute;
     top: 0;
-    left: 5vw;
+    left: 10px;
     z-index: 0;
 }
 
+.pairing__frame--hide .frame{
+    background-color: var(--color-shadow);
+}
 .pairing__frames:hover .pairing__frame--hide {
     transform: translateX(25%) rotate(5deg);
 }
@@ -58,16 +67,25 @@
 .song__info{
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: var(--border-radius);
-    padding: 15px;
-    height: 100%;
+    padding: 10px;
+    height: 105%;
     width: 100%;
     max-width: 250px;
     color: var(--color-background);
+}
+
+.song__title{
+    font-size: 1.2rem;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 2rem;
+    position: relative;
+
 }
 
 .song__info-with-mask {
