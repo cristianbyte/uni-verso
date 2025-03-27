@@ -8,7 +8,7 @@
 .pairings__list {
     display: flex;
     flex-direction: column;
-    gap: 2vh;
+    gap: 10px;
     height: 45dvh;
     outline: 5px solid var(--color-primary);
     border-radius: var(--border-radius);
@@ -19,8 +19,9 @@
 
 .pairings__item {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
-    max-height: 17vh;
 }
 
 .pairing {
@@ -42,7 +43,7 @@
 .pairing__frame--hide {
     transition: .2s ease-out;
     width: 12vh;
-    height: 15vh;
+    height: max-content;
     z-index: 10;
 }
 
@@ -73,7 +74,7 @@
     background-position: center;
     border-radius: var(--border-radius);
     padding: 10px;
-    height: 105%;
+    height: 100%;
     width: 100%;
     max-width: 250px;
     color: var(--color-background);

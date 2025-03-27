@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Copy } from "lucide-react";
+import PairingStats from "../pairingStats/PairingStats"
 import SongPlayer from "../songPlayer/SongPlayer";
 import Frame from "../frame/Frame";
 import "./pairings.css";
@@ -82,6 +83,9 @@ const Pairings = ({ pairings }) => {
           pairings.map((pair, index) => (
             <div key={index} className="pairings__item">
               <PairingItem pair={pair} />
+              <PairingStats stats={
+                "none"
+              }/>
             </div>
           ))
         ) : (

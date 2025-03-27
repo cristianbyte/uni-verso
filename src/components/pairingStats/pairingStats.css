@@ -1,0 +1,44 @@
+.stats{
+    position: relative;
+    height: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: .3s ease-in-out;
+}
+
+.open{
+    height: 15vh;
+}
+
+.icon{
+    transition: .3s ease-in-out;
+    color: var(--color-primary);
+    stroke-width: 5px;
+}
+
+.stats__arrow{
+    position: absolute;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    transition: .3s ease-in-out;
+    background-color: var(--color-shadow);
+    border-radius: 10px;
+    width: 100%;
+    z-index: 100;
+}
+
+.down{
+    transition: .3s ease-in-out;
+    margin-top: calc(15vh - 30px);
+}
+
+.rotate-180{
+    transform: rotate(180deg) ;
+
+}
+
+.stats__info{
+    margin-top: 0px;
+}
