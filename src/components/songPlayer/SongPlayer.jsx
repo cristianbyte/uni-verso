@@ -25,7 +25,10 @@ const SongPlayer = ({
       autoPlay={autoPlay}
       loop={loop}
       className="custom-audio-player"
-    />
+      controlsList="nodownload noplaybackrate"
+    >
+      Audio not supported
+    </audio>
   );
 };
 
