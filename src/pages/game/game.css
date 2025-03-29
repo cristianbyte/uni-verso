@@ -1,0 +1,31 @@
+.game {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .game__start {
+    margin-top: 100px;
+    position: relative;
+  }
+  
+  .game__loading {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    top: -200%;
+    left: calc(50% - 50px);
+    /* display: none; */
+    transform-origin: center;
+    border: 10px solid var(--color-shadow);
+    border-top: 10px solid var(--color-main);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
