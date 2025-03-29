@@ -12,3 +12,7 @@
 .custom-audio-player::-webkit-media-controls-panel {
     background-color: var(--color-background);
 }
+
+::-webkit-media-controls-time-remaining-display {
+  display: none;
+}

@@ -67,7 +67,7 @@ function Welcome() {
     <div className="welcome-page vanish">
       <form className="form">
         {/* Title */}
-        <h1 >LessMatch</h1>
+        <h1 >universo</h1>
 
         {/* Profile Images */}
         <div className="swiper-container">

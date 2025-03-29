@@ -1,4 +1,4 @@
-.button-primary, .button-secondary {
+.button-primary, .button-secondary, .button-third {
     transition: .2s ease;
     font-size: 1.5rem;
     background-color: var(--color-background);
@@ -17,10 +17,17 @@
     color: var(--color-primary);
 }
 
-.button-secondary{
+.button-secondary, .button-third{
     width: 100%;
     padding: 0 .5rem;
     font-size: 1.2rem;
+}
+
+.button-third{
+    background-color: var(--color-main);
+    color: var(--color-background);
+    padding: 5px;
+    border: none;
 }
 
 .button-secondary span{
@@ -32,9 +39,17 @@
     bottom: 5vh;
 }
 
+.simple{
+    box-shadow: none;
+}
+
+.button-third:disabled{
+    background-color: var(--color-shadow);
+    color: var(--color-background);
+}
+
 button:disabled{
     transition: .2s ease;
-    filter: opacity(50%);
     border-color: var(--color-shadow);
     color: var(--color-shadow);
 }
