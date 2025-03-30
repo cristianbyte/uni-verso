@@ -6,7 +6,8 @@ const SongPlayer = ({
   autoPlay = false, 
   loop = false, 
   volume = 0.7,
-  controls = true
+  controls = true,
+  className,
 }) => {
   const audioRef = useRef(null);
   
@@ -24,7 +25,7 @@ const SongPlayer = ({
       controls={controls} 
       autoPlay={autoPlay}
       loop={loop}
-      className="custom-audio-player"
+      className={`custom-audio-player ${className}`}
       controlsList="nodownload noplaybackrate"
     >
       Audio not supported
