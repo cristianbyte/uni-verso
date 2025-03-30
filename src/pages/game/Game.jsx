@@ -1,74 +1,79 @@
 import React, { useEffect, useState } from "react";
-import { getByCode } from "../../services/songService/getByCode.js"
+import ProgressLoader from "../../components/loader/ProgressLoader.jsx";
+import { getByCode } from "../../services/songService/getByCode.js";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import Button from "../../components/button/Button";
 import "./game.css";
+import Frame from "../../components/frame/Frame.jsx";
+import SongPlayer from "../../components/songPlayer/SongPlayer.jsx";
 
-const Starting = ({ onStartGame, isLoading }) => {
+
+const Loading = () => <div className="game__loading"></div>;
+
+const GameContent = ({ songData }) => {
+  const [verseProgress, setVerseProgress] = useState(0);
+  const [versesSelected, setVersesSelected] = useState(5);
+  const totalVerses = songData.verseCount;
+  
+  useEffect(() => {
+    setVerseProgress((versesSelected / totalVerses)*100);
+  }, [versesSelected, totalVerses]);
+
   return (
-    <div className="game__start">
-      {isLoading ? <div className="game__loading"></div> : ""}
-      <Button
-        className="primary simple"
-        text="Start Game"
-        onClick={onStartGame}
-        disabled={isLoading}
-      />
-    </div>
+    <>
+      {/* <h2 >UniVerso</h2> */}
+      {songData && (
+        <div className="game">
+          {/* Display song data here */}
+          <div className="game__info">
+            <div className="info__frame">
+              <Frame />
+            </div>
+            <div className="info__details">
+              <h4>{songData.artist}</h4>
+              <h4>{songData.title}</h4>
+              <h4>{versesSelected}/{totalVerses}</h4>
+              <ProgressLoader value={verseProgress} />
+              <SongPlayer className="details__player" />
+            </div>
+          </div>
+          <div className="game__lyrics">
+
+          </div>
+          <div className="game__selector">
+            
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-const GameContent = () => {
-  return (
-    <div className="game__content">
-      <h2>Game Area</h2>
-      {/* Add your game elements here */}
-    </div>
-  );
-};
-
-const Game = ({ codeGame= "N5VXHQ" }) => {
-  const { user, setUser } = useContext(UserContext);
-  const [isStarting, setIsStarting] = useState(true);
+const Game = ({ codeGame = "1D4BVB" }) => {
+  const { user } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [songData, setSongData] = useState(null);
-  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetchSong = async () => {
-      // Prevent multiple concurrent requests
-      if (isFetching || songData !== null) return;
-
       try {
-        setIsFetching(true);
         const response = await getByCode(user, codeGame);
+
         setSongData(response);
-        setIsLoading(false);
         console.log(response);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching song:", error);
         setIsLoading(false);
-      } finally {
-        setIsFetching(false);
       }
     };
 
     fetchSong();
-  }, [codeGame, user, isFetching, songData]);
-
-  const handleStartGame = () => {
-    setIsLoading(false);
-    setIsStarting(false);
-  };
+  }, [codeGame, user]);
 
   return (
-    <div className="game">
-      {isStarting ? (
-        <Starting onStartGame={handleStartGame} isLoading={isLoading} />
-      ) : (
-        <GameContent />
-      )}
+    <div className="game__container">
+      {isLoading ? <Loading /> : <GameContent songData={songData} />}
     </div>
   );
 };
