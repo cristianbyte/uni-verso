@@ -39,7 +39,7 @@ const Button = ({
       className={`button-${className}`}
       disabled={disabled}
     >
-      {icon && <span className="button__icon" >{icon}</span>}
+      {icon && <>{icon}</>}
       {text && <p>{text}</p>}
     </button>
   );
