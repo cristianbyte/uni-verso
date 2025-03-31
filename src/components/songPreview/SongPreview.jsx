@@ -8,7 +8,7 @@ const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics, isSample})
         <div className='songPrev' >
             <div className="songPreview">
                 { codImg &&
-                    <img className='songPrev__img' src={`http://e-cdns-images.dzcdn.net/images/cover/${codImg}/250x250.jpg`} alt={title} />
+                    <img className='songPrev__img' src={`http://e-cdns-images.dzcdn.net/images/cover/${codImg}/500x500.jpg`} alt={title} />
                 }
                 <div className="songPrev__info">
                     <h4 className='songPrev__text' >{title}</h4>
