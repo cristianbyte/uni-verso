@@ -9,6 +9,9 @@
     border: 5px solid var(--color-primary);
     box-shadow: -5px 5px 0px 0px var(--color-primary);
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-primary:hover, .button-secondary:hover{
@@ -41,6 +44,10 @@
 
 .simple{
     box-shadow: none;
+}
+
+.no-border{
+    border: unset;
 }
 
 .button-third:disabled{
