@@ -66,3 +66,13 @@ button:disabled:hover{
     transform: unset;
     color: var(--color-shadow);
 }
+
+.simple:hover{
+    box-shadow: none;
+    transform: none;
+}
+
+.simple:active{
+    box-shadow: none;
+    transform: scale(1.1);
+}

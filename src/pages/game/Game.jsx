@@ -24,7 +24,7 @@ const Game = ({ codeGame = "1D4BVB" }) => {
     };
 
     fetchSong();
-  }, [codeGame, user]);
+  }, []);
 
   return (
     <div className="game__container">
