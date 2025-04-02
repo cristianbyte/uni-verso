@@ -38,7 +38,7 @@ const GameContent = ({ songData }) => {
         setVerseList(formattedVerses);
 
       } catch (error) {
-        console.error("Error cargando las letras:", error);
+        console.error("Error loading lyrics:", error);
       }
     };
 
@@ -70,7 +70,9 @@ const GameContent = ({ songData }) => {
             </div>
           </div>
 
-          <div className="game__lyrics">{/* <GameLyics /> */}</div>
+          <div className="game__lyrics"  style={{ backgroundImage: `url(${songData.albumImage}`}}>
+            {/* <GameLyics /> */}
+          </div>
 
           <div className="game__selector">
             <GameSelector verseList={verseList} setVerseList={setVerseList} currentVerse={currentVerse} setCurrentVerse={setCurrentVerse} />

@@ -5,7 +5,7 @@ import GameContent from "../../components/game/GameContent";
 
 const Loading = () => <div className="game__loading"></div>;
 
-const Game = ({ codeGame = "1D4BVB" }) => {
+const Game = ({ codeGame = "1HYN26" }) => {
   const { user } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [songData, setSongData] = useState(null);
