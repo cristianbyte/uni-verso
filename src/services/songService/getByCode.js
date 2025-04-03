@@ -1,11 +1,10 @@
-const API_URL = 'http://localhost:8080/api/v1';
+const API_URL = 'http://192.168.1.7:8080/api/v1';
 
 export const getByCode = async (userData, code) => {
     try {
         if (!userData || !userData.myuuid) {
             throw new Error('User ID is required');
         }
-        
         const response = await fetch(`${API_URL}/song/getByParing/${code}`, {
             method: 'GET',
             headers: {
