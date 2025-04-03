@@ -19,8 +19,9 @@
 
 .stats__arrow{
     position: absolute;
-    height: 25px;
+    height: 30px;
     display: flex;
+    align-items: center;
     justify-content: center;
     transition: .3s ease-in-out;
     background-color: var(--color-shadow);

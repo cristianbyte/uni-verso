@@ -15,6 +15,7 @@ const fetchUrl = async (url, options = {}) => {
   }
 
   try {
+    console.log("fetching url", url);
     const response = await fetch(url, fetchOptions);
     
     if (!response.ok) {

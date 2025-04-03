@@ -22,14 +22,13 @@
 
 .button-secondary, .button-third{
     width: 100%;
-    padding: 0 .5rem;
+    padding: 0 1rem;
     font-size: 1.2rem;
 }
 
 .button-third{
     background-color: var(--color-main);
     color: var(--color-background);
-    padding: 5px;
     border: none;
 }
 
@@ -65,4 +64,14 @@ button:disabled:hover{
     box-shadow: -5px 5px 0px 0px var(--color-primary);
     transform: unset;
     color: var(--color-shadow);
+}
+
+.simple:hover{
+    box-shadow: none !important;
+    transform: scale(1.1);
+}
+
+.simple:active{
+    box-shadow: none;
+    transform: scale(1.1);
 }

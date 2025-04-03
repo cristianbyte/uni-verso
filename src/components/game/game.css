@@ -5,104 +5,219 @@
   width: 100%;
 }
 
-/* --color-background: #F5F5F5;
---color-primary: #24003A;
---color-cancel: #FF9D00;
---color-accept: #00FF9D;
---color-shadow: #CCCCCC;
---color-main: #9D00FF;
---border-radius: 10px;
---border: 5px; */
-
 .game {
   width: 100dvw;
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   gap: 5vh;
   align-items: center;
   padding: 1rem;
-  background-color: var(--color-primary);
-  color: var(--color-background);
+  color: var(--color-primary);
+  background-color: white;
 }
 
 .game__info {
-  position: relative;
+  top: 1rem;
+  position: absolute;
   display: flex;
   flex-direction: row;
   width: 100%;
   max-width: 600px;
+  padding: 0 1rem;
   gap: 1rem;
   height: 18vh;
   line-height: 1rem;
 
   .info__frame {
-    height: 100%;
+    height: 105%;
     aspect-ratio: 4 / 5;
-    max-width: 150px;
   }
 
   .info__details {
     display: flex;
     flex-grow: 1;
+    gap: 5px;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: .8vh;
 
-    .details__player {
-      height: 2rem;
+    .details__row {
+      display: flex;
+      flex-direction: row;
+      gap: .5rem;
+
+      .details__pic {
+        width: 5rem;
+        aspect-ratio: 1/1;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: var(--border-radius);
+        }
+      }
+
+      .details__data {
+        display: flex;
+        justify-content: safe;
+        flex-direction: column;
+        gap: .5rem;
+      }
     }
   }
+}
 
+/*---- LYRICS ----*/
+
+.game__lyrics-area {
+  position: relative;
+  width: min(600px, 100%);
+  height: max(300px, 100vw);
+  max-height: 400px;
 }
 
 .game__lyrics {
-  flex-grow: 1;
-
-} 
-
-
-
-.game__selector{
-  width: min(500px, 100%);
-  position: absolute;
-  height: 25vh;
-  bottom: 5vh;
-
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease-in;
+  scroll-behavior: smooth;
+  z-index: 1;
 }
 
-.selector{
+
+.game__lyrics-area::after,
+.game__lyrics-area::before {
+  position: absolute;
+  top: 0;
+  content: '';
+  width: 100%;
+  height: 10%;
+  z-index: 1;
+  background-image: linear-gradient(to bottom, #FFFFFF, transparent);
+}
+
+.game__lyrics-area::before {
+  top: unset;
+  bottom: 0;
+  background-image: linear-gradient(to top, #FFFFFF, transparent);
+  z-index: 10;
+}
+
+.game__lyrics::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.verse {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  line-height: 2rem;
+  text-align: center;
+  transition: all 0.3s ease-in;
+  min-width: auto;
+  max-width: 100%;
+  color: var(--color-shadow);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.false{
+  font-weight: bold;
+  color: var(--color-cancel);
+}
+
+.true{
+  font-weight: bold;
+  color: var(--color-accept);
+}
+
+.current {
+  transition: all 0.3s ease-in;
+  font-weight: bold;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  background-position: 100%;
+  transform: scale(1.25);
+  background-image: linear-gradient(to right, var(--color-main) 0%, var(--color-main) 49%, var(--color-shadow) 50%, var(--color-shadow) 100%);
+  -webkit-background-clip: text;
+  animation: revealText 2s forwards ease-in-out;
+}
+
+.no-display {
+  display: none;
+}
+
+@keyframes revealText {
+  from {
+    background-position: 100% 100%;
+  }
+
+  to {
+    background-position: 0% 100%;
+  }
+}
+
+
+/*---- SELECTOR ----*/
+
+.game__selector {
+  width: min(600px, 100%);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  bottom: 0;
+  color: var(--color-primary);
+  z-index: 10;
+}
+
+.selector {
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 1rem;
-  
-  .selector__verse{
-    height: 15vh;
-    background-color: blue;
-    width: 100%;
-  }
 
-  .selector__options{
+  .selector__options {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 1rem 0;
     gap: 1rem;
 
-    button{
+    button {
       width: 50%;
       height: 4rem;
     }
   }
 }
 
+/*---- END ----*/
 
+.game__end{
+  position: absolute;
+  bottom: 10px;
+  padding: 5px;
+  Button{
+    padding: 5px !important;
+  }
+}
 
-
+/*---- LOADER ----*/
 
 .game__loading {
   position: absolute;
@@ -125,69 +240,5 @@
 
   100% {
     transform: rotate(360deg);
-  }
-}
-
-.verse {
-  text-align: center;
-  height: 1.5rem;
-}
-
-.verse--accepted {
-  color: var(--color-accept);
-}
-
-.verse--rejected {
-  color: var(--color-cancel);
-}
-
-.selector__verse {
-  padding: 15px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.1);
-  margin-bottom: 15px;
-  text-align: center;
-  min-height: 100px;
-  max-height: 200px; /* Define una altura máxima */
-  overflow-y: auto; /* Habilita el scroll vertical */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.game__lyrics {
-  max-height: 30vh; /* Define una altura máxima */
-  overflow-y: auto; 
-  scroll-behavior: smooth;
-  padding: 10px;
-}
-
-.verse-enter {
-  animation: slideIn 0.5s ease-out forwards;
-}
-
-.verse-exit {
-  animation: fadeOut 0.3s ease-out forwards;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
   }
 }

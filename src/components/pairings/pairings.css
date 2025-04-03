@@ -20,7 +20,8 @@
 .pairings__item {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+    justify-content: space-between;
     width: 100%;
 }
 
