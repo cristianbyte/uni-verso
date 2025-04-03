@@ -8,6 +8,7 @@ import Frame from "../../components/frame/Frame.jsx";
 import GameLyics from "./GameLyrics.jsx";
 import GameSelector from "./GameSelector.jsx";
 import "./game.css";
+import Button from "../button/Button.jsx";
 
 const GameContent = ({ songData }) => {
   const { user, setUser } = useContext(UserContext);
@@ -15,15 +16,14 @@ const GameContent = ({ songData }) => {
   const [currentVerse, setCurrentVerse] = useState(0);
   const [progressPercentage, setProgressPercentage] = useState(0);
   const totalVerses = songData.verseCount;
-  
+
   useEffect(() => {
-    console.log(songData);
     setUser((prevUser) => ({
       ...prevUser,
       soundEnabled: false,
     }));
   }, []);
-  
+
   useEffect(() => {
     const loadLyrics = async () => {
       try {
@@ -36,7 +36,6 @@ const GameContent = ({ songData }) => {
         }));
 
         setVerseList(formattedVerses);
-
       } catch (error) {
         console.error("Error loading lyrics:", error);
       }
@@ -47,8 +46,8 @@ const GameContent = ({ songData }) => {
 
   // update progress bar
   useEffect(() => {
-    setProgressPercentage((currentVerse / totalVerses) * 100);
-  }, [currentVerse,totalVerses]);
+    setProgressPercentage(((currentVerse + 1) / totalVerses) * 100);
+  }, [currentVerse, totalVerses]);
 
   return (
     <>
@@ -60,23 +59,40 @@ const GameContent = ({ songData }) => {
               <Frame />
             </div>
             <div className="info__details">
-              <h4>{songData.artist}</h4>
-              <h4>{songData.title}</h4>
-              <h4>
-                {currentVerse}/{totalVerses}
-              </h4>
+              <div className="details__row">
+                <div className="details__pic">
+                  <img src={songData.albumImage} alt="" />
+                </div>
+                <div className="details__data">
+                  <h4>{songData.artist}</h4>
+                  <h4>{songData.title}</h4>
+                  <h4>
+                    {currentVerse}/{totalVerses}
+                  </h4>
+                </div>
+              </div>
               <ProgressLoader value={progressPercentage} />
               <SongPlayer url={songData.preview} className="details__player" />
             </div>
           </div>
 
-          <div className="game__lyrics"  style={{ backgroundImage: `url(${songData.albumImage}`}}>
-            {/* <GameLyics /> */}
+          <div className="game__lyrics-area">
+            <GameLyics verseList={verseList} currentVerse={currentVerse} setCurrentVerse={setCurrentVerse}/>
           </div>
 
           <div className="game__selector">
-            <GameSelector verseList={verseList} setVerseList={setVerseList} currentVerse={currentVerse} setCurrentVerse={setCurrentVerse} />
+            <GameSelector
+              verseList={verseList}
+              setVerseList={setVerseList}
+              currentVerse={currentVerse}
+              setCurrentVerse={setCurrentVerse}
+            />
           </div>
+          {progressPercentage >= 99 && (
+            <div className="game__end">
+              <Button text={"End Game"}  className="third simple" />
+            </div>
+            )}
         </div>
       )}
     </>

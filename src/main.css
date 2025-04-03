@@ -1,8 +1,8 @@
 :root {
     --color-background: #F5F5F5;
     --color-primary: #24003A;
-    --color-cancel: #FF9D00;
-    --color-accept: #00FF9D;
+    --color-cancel: #CCCCCC;
+    --color-accept: #02f37a;
     --color-shadow: #CCCCCC;
     --color-main: #9D00FF;
     --border-radius: 10px;

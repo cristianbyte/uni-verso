@@ -20,11 +20,6 @@ const GameSelector = ({ verseList, setVerseList, currentVerse, setCurrentVerse }
 
   return (
     <div className="selector">
-      <div className={`selector__verse ${fadeOut ? "fade-out" : "fade-in"}`}>
-        <div className={`verse ${fadeOut ? "": "revealText"}`}>
-            {verseList[currentVerse]?.text || ""}
-        </div>
-      </div>
       <div className="selector__options">
         <Button
           className="secondary simple cancel no-border"
