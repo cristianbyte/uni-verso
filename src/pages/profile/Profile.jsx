@@ -33,10 +33,8 @@ function Profile() {
               ...user,
               pairings: [...user.pairings, response]
             });
-          }else if (response.status === 400){
-            showAlert("THE CODE HAS ALREADY BEEN USED", "error");
-          }else if(response.status === 404){
-            showAlert("WRONG CODE", "error");
+          }else if (response.status){
+            showAlert(response.message, "error");
           }else{
             showAlert("UNKNOWN ERROR", "error");
         }
