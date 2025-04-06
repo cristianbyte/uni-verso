@@ -7,7 +7,6 @@ import Welcome from './pages/welcome/Welcome';
 import Game from './pages/game/Game';
 
 function App() {
-
   return (
     <BrowserRouter>
       <UserProvider>
@@ -16,6 +15,7 @@ function App() {
           <Route path="/create" element={<CreateGame />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/game" element={<Game />} />
+          <Route path="/game/:pairingCode" element={<Game />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </UserProvider>

@@ -5,7 +5,7 @@ export const getByCode = async (userData, code) => {
         if (!userData || !userData.myuuid) {
             throw new Error('User ID is required');
         }
-        const response = await fetch(`${API_URL}/song/getByParing/${code}`, {
+        const response = await fetch(`${API_URL}/pairing/refresh/${code}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${userData.myuuid}`,
