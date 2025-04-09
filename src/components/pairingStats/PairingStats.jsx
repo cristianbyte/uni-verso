@@ -1,17 +1,19 @@
 import { getPairingDataByCode } from "../../services/songService/getPairingDataByCode.js";
 import { UserContext } from "../../context/UserContext";
+import { processLyrics } from "../../utils/processLyrics.js";
 import { useContext } from "react";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { showAlert } from "../alert/alertService";
-import "./pairingStats.css";
 import PieChart from "../charts/pie.jsx";
+import fetchUrl from "../../services/fetchUrl.js";
+import "./pairingStats.css";
 
 const Loading = () => <div className="game__loading"></div>;
 
 const PairingStats = ({ pairingCode }) => {
-  // fectch data from the server
   const { user } = useContext(UserContext);
+  const [verses, setVerses] = useState([]);
   const [data, setData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,22 +22,30 @@ const PairingStats = ({ pairingCode }) => {
       setIsOpen(!isOpen);
       return;
     }
-  
+
     try {
       const response = await getPairingDataByCode(user, pairingCode);
-  
-      if (!response.pairingScore || !response.creatorUser || !response.pairedUser) {
+
+      if (
+        response.creatorLines.length == 0 ||
+        response.pairedLines.length == 0
+      ) {
         showAlert("No stats available yet", "info");
         return;
       }
-  
+
       setData(response);
+      console.log("fetched data", response);
+      const fetch = await fetchUrl(response.song.lyricsApiUrl)
+      console.log(fetch);
+      setVerses(processLyrics(fetch.lyrics));
+      console.log(verses);
+
       setIsOpen(true);
     } catch (error) {
       showAlert("Failed to fetch data.", "error");
     }
   };
-  
 
   return (
     <div className={`stats ${isOpen ? "open" : ""}`} id="stats">
@@ -58,7 +68,7 @@ const PairingStats = ({ pairingCode }) => {
                 <PieChart
                   value={data.pairingScore.connectionScore}
                   total={100}
-                  text={data.pairingScore.connectionScore + "%"}
+                  text={data.pairingScore.connectionScore.toFixed(1)  + "%"}
                 />
                 <h6>
                   Match <br /> Percentage
@@ -85,7 +95,28 @@ const PairingStats = ({ pairingCode }) => {
             </div>
             <div className="stats__lines">
               <h6>Verses</h6>
-              <div className="lines"></div>
+              <div className="lines">
+                {!verses ? (
+                  <Loading />
+                ) : (
+                  verses.map((line, index) => (
+                    <div
+                      key={index}
+                      className={`line ${
+                        data.creatorLines[index] && data.pairedLines[index]
+                          ? "selected-both"
+                          : data.creatorLines[index]
+                          ? "selected-me"
+                          : data.pairedLines[index]
+                          ? "selected-you"
+                          : ""
+                      }`}
+                    >
+                      {line}
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
         )}

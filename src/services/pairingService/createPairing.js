@@ -6,6 +6,7 @@ export const createPairing = async (userData, song) => {
     const response = await fetch(`${API_URL}/pairing/create`, {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${userData.myuuid}`,
         'Content-Type': 'application/json',
         'Accept': '*/*'
       },

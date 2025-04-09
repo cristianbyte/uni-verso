@@ -8,13 +8,12 @@
 
 .create__frame{
     position: absolute;
-    top: 5vh;
+    top: 10vh;
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
+    height: max(15vh, 100px);
     gap: 30vw;
-    width: 100%;
-    padding: 12vw 12vw 0  12vw;
 }
 
 .create__container{
@@ -22,7 +21,7 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    width: 70%;
+    width: 90%;
     height: 50vh;
 }
 

@@ -8,10 +8,6 @@ const ErrorPage = () => {
       <h1>404</h1>
       <h2>Page not found</h2>
       
-      <div className="error-image">
-        <span className="emoji">🎵❓</span>
-      </div>
-      
       <div className="navigation">
         <Link to="/" className="nav-link">Back to home</Link>
       </div>

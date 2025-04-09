@@ -5,8 +5,9 @@ export const createUser = async (userData) => {
       const response = await fetch(`${API_URL}/user`, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
-              'Accept': '*/*'
+            'Authorization': `Bearer ${userData.myuuid}`,
+            'Content-Type': 'application/json',
+            'Accept': '*/*'
           },
           body: JSON.stringify(userData)
       });

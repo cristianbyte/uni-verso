@@ -108,7 +108,7 @@ const CreateGame = () => {
     <div className="create vanish">
       <Banner viewText="New Game" back={handleBack} />
       <div className="create__frame">
-        <Frame src={user.profileImage} text={user.nickname} fontSize={"1rem"} />
+        <Frame src={user.profileImage} text={user.nickname} fontSize={".8rem"} />
         <Frame src={"/images/question.png"} />
       </div>
 

@@ -1,6 +1,5 @@
 .profile{
     width: 100dvw;
-    height: 100dvh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -9,7 +8,7 @@
 .profile__frame{
     top: 5%;
     position: absolute;
-    width: 45%; 
+    width:  200px;
 }
 
 .profile__options{
@@ -29,19 +28,14 @@
     flex-direction: row;
     gap: 5vw;
     height: 8dvh;
+    padding: 0 .5rem;
 }
 
 .profile__content{
     display: flex;
     flex-direction: column;
+    height: max-content;
     margin-top: 5vh;
-    padding: 0 5vw;
-    width: 100%;
+    width: min(100%, 600px);
     gap: 2vh;
-}
-
-@media (orientation: landscape){
-    .profile__frame{
-        width: 20%;
-    }
 }

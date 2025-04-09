@@ -6,6 +6,7 @@ export const submitCode = async (userData, code) => {
     const response = await fetch(`${API_URL}/pairing/${code}/pair`, {
       method: 'PATCH',
       headers: {
+        'Authorization': `Bearer ${userData.myuuid}`,
         'Content-Type': 'application/json',
         'Accept': '*/*'
       },
