@@ -1,0 +1,41 @@
+/* pieChart */
+
+.pie-chart-container {
+    width: min-content;
+    height: min-content;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.pie-chart-container:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.pie-chart-outer {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-chart-inner {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--color-background);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-chart-text {
+    font-size: 1rem;
+    font-weight: bold;
+}
+

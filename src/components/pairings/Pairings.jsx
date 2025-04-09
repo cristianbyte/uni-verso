@@ -41,8 +41,7 @@ const Pairings = ({ pairings }) => {
                   onClick={() => StartGame(pair)}
                 />
               }
-
-              <PairingStats stats={"none"} />
+              <PairingStats stats={"none"} pairingCode={pair.pairingCode} />
             </div>
           ))
         ) : (

@@ -1,10 +1,12 @@
 :root {
     --color-background: #F5F5F5;
     --color-primary: #24003A;
-    --color-cancel: #CCCCCC;
-    --color-accept: #02f37a;
+    --color-cancel: #FFA400;
+    --color-accept: #00FA71;
     --color-shadow: #CCCCCC;
     --color-main: #9D00FF;
+    --color-me: #4A00FF;
+    --color-you: #F100FF;
     --border-radius: 10px;
     --border: 5px;
 }
