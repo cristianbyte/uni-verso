@@ -8,9 +8,13 @@ import Frame from "../../components/frame/Frame.jsx";
 import GameLyics from "./GameLyrics.jsx";
 import GameSelector from "./GameSelector.jsx";
 import "./game.css";
+import { useNavigate } from "react-router-dom";
 import Button from "../button/Button.jsx";
+import { submitLines } from "../../services/pairingService/submitLines.js";
+import { showAlert } from "../alert/alertService.jsx";
 
 const GameContent = ({ songData }) => {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [verseList, setVerseList] = useState([]);
   const [currentVerse, setCurrentVerse] = useState(0);
@@ -38,6 +42,7 @@ const GameContent = ({ songData }) => {
       try {
         const lyricsData = await fetchUrl(songData.song.lyricsApiUrl);
         const verses = processLyrics(lyricsData.lyrics);
+        console.log(verses);
         const formattedVerses = verses.map((text, index) => ({
           id: index,
           text,
@@ -57,6 +62,28 @@ const GameContent = ({ songData }) => {
   useEffect(() => {
     setProgressPercentage(((currentVerse + 1) / totalVerses) * 100);
   }, [currentVerse, totalVerses]);
+
+  // end game
+  const handleEnding = async () => {
+    try{
+      const finalVerseList = verseList.map((verse) => verse.status);
+      const response = await submitLines(user, finalVerseList, songData.pairingCode);
+      if (response) {
+        showAlert("Lines submitted successfully!", "success");
+      } else {
+        showAlert("Error submitting lines", "error");
+      }
+      setUser((prevUser) => ({
+        ...prevUser,
+        soundEnabled: true,
+      }));
+      navigate("/");
+    }
+    catch (error) {
+      console.error("Error ending game:", error.message);
+      showAlert("Ops! something went wrong", "error");
+    }
+  };
 
   return (
     <>
@@ -99,7 +126,7 @@ const GameContent = ({ songData }) => {
           </div>
           {progressPercentage >= 99 && (
             <div className="game__end">
-              <Button text={"End Game"}  className="third simple" />
+              <Button text={"End Game"}  className="third simple" onClick={handleEnding}/>
             </div>
             )}
         </div>
