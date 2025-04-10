@@ -1,4 +1,5 @@
 const API_URL = 'http://192.168.1.7:8080/api/v1';
+const token = localStorage.getItem('token');
 
 export const deleteUser = async (uuid) => {
     try {
@@ -9,7 +10,7 @@ export const deleteUser = async (uuid) => {
         const response = await fetch(`${API_URL}/user/${uuid}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer ${uuid}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Accept': '*/*'
             }
