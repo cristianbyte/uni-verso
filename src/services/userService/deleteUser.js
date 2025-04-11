@@ -1,7 +1,10 @@
+import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
+
 const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 const token = localStorage.getItem('token');
 
 export const deleteUser = async (uuid) => {
+    showLoading();
     try {
         if (!uuid) {
             throw new Error('User ID is required');
@@ -29,5 +32,7 @@ export const deleteUser = async (uuid) => {
     } catch (error) {
         console.error('Error deleting user:', error);
         throw error;
+    } finally{
+        hideLoading();
     }
 };

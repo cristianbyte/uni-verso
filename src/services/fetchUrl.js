@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from "../components/loading/loadingUtils";
+
 const cache = {};
 
 const fetchUrl = async (url, options = {}) => {
@@ -14,6 +16,7 @@ const fetchUrl = async (url, options = {}) => {
     return cache[cacheKey].data;
   }
 
+  showLoading();
   try {
     console.log("fetching url", url);
     const response = await fetch(url, fetchOptions);
@@ -35,6 +38,8 @@ const fetchUrl = async (url, options = {}) => {
   } catch (error) {
     console.error('Error fetching:', error);
     return "Failed to load resource: " + error.message;
+  } finally{
+    hideLoading();
   }
 };
 

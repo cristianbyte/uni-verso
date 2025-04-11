@@ -1,7 +1,10 @@
+import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
+
 const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 const token = localStorage.getItem('token');
 
 export const getUser = async (userData) => {
+    showLoading();
     try {
         if (!userData || !userData.myuuid) {
             throw new Error('User ID is required');
@@ -25,5 +28,7 @@ export const getUser = async (userData) => {
         return data;
     } catch (error) {
         throw error;
+    }finally {
+        hideLoading();
     }
 };

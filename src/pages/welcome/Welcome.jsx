@@ -60,7 +60,7 @@ function Welcome() {
     if (user && user.nickname && user.profileImage) {
       navigate('/profile');
     }
-  }, []);
+  }, [user, navigate]);
   
     
   return (

@@ -1,7 +1,10 @@
+import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
+
 const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 const token = localStorage.getItem('token');
 
 export const updateUser = async (userData) => {
+    showLoading();
     try {
         const response = await fetch(`${API_URL}/user/${userData.id}`, {
             method: 'PUT',
@@ -27,5 +30,7 @@ export const updateUser = async (userData) => {
     } catch (error) {
         console.error('Error updating user:', error.message);
         throw error;
+    } finally {
+        hideLoading();
     }
 };

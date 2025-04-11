@@ -1,6 +1,9 @@
+import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
+
 const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 
 export const createUser = async (userData) => {
+  showLoading();
   try {
     const response = await fetch(`${API_URL}/user/auth`, {
       method: 'POST',
@@ -27,5 +30,7 @@ export const createUser = async (userData) => {
   } catch (error) {
     console.error('Error creating user:', error);
     throw error;
+  } finally {
+    hideLoading();
   }
 };

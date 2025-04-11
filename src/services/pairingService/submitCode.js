@@ -1,9 +1,11 @@
+import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
+
 const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 const token = localStorage.getItem('token');
 
 export const submitCode = async (userData, code) => {
   try {
-    
+    showLoading();
     const response = await fetch(`${API_URL}/pairing/${code}/pair`, {
       method: 'PATCH',
       headers: {
@@ -26,5 +28,7 @@ export const submitCode = async (userData, code) => {
   } catch (error) {
     console.error('Error creating paring:', error);
     throw error;
+  }finally {
+    hideLoading();
   }
 };

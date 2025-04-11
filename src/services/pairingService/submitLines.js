@@ -1,8 +1,12 @@
-const API_URL = "http://192.168.1.7:8080/api/v1";
+import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
+
+const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 const token = localStorage.getItem('token');
 
 export const submitLines = async (userData, lines, pairingCode) => {
+  showLoading();
   try {
+
     const response = await fetch(`${API_URL}/pairing/${pairingCode}/lines`, {
       method: "PATCH",
       headers: {
@@ -27,5 +31,7 @@ export const submitLines = async (userData, lines, pairingCode) => {
   } catch (error) {
     console.error("Error sendig lines:", error);
     throw error;
+  }finally {
+    hideLoading();
   }
 };
