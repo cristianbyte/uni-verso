@@ -23,7 +23,8 @@ const GameLyrics = ({ verseList, currentVerse, setCurrentVerse }) => {
 
   return (
     <div ref={containerRef } className="game__lyrics">
-      {verseList.map((verse, index) => (
+        { (verseList && verseList.length > 0) ? 
+      verseList.map((verse, index) => (
         <div 
           key={index} 
           ref={versesRef.current[index]}
@@ -32,7 +33,7 @@ const GameLyrics = ({ verseList, currentVerse, setCurrentVerse }) => {
         >
           {verse.text}
         </div>
-      ))}
+      )) : <div className="game__loading"></div>}
     </div>
   );
 };

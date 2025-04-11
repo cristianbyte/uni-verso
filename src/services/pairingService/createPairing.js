@@ -1,4 +1,5 @@
 const API_URL = 'http://192.168.1.7:8080/api/v1';
+const token = localStorage.getItem('token');
 
 export const createPairing = async (userData, song) => {
   try {
@@ -6,6 +7,7 @@ export const createPairing = async (userData, song) => {
     const response = await fetch(`${API_URL}/pairing/create`, {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
         'Accept': '*/*'
       },

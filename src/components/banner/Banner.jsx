@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import Frame from '../frame/Frame';
 import './banner.css';
+import { showAlert } from '../alert/alertService';
 
 const Banner = ({ viewText, back }) => {
     const { user, setUser } = useContext(UserContext);
@@ -14,7 +15,8 @@ const Banner = ({ viewText, back }) => {
 
     const handleRefresh = async () => {
         // implement when the user does not exist
-              const result = await getUser(user);
+        try {
+            const result = await getUser(user);
               if (result.statusCode === 404) {
                 alert('User does not exist');
                 localStorage.removeItem('user');
@@ -28,6 +30,11 @@ const Banner = ({ viewText, back }) => {
                 profileImage: result.icon,
                 pairings : result.pairings,
               });
+        } catch (error) {
+            showAlert('Error fetching user data', 'error');
+            console.error('Error fetching user data:', error.message);
+            
+        }
     }
     
     const handleSound = () => {
@@ -46,9 +53,9 @@ const Banner = ({ viewText, back }) => {
         try {
             // setIsLoading(true);
             
-            await deleteUser(user.myuuid);
-            
             localStorage.removeItem('user');
+            
+            await deleteUser(user.myuuid);
             
             alert('Your account has been successfully deleted');
             
@@ -84,7 +91,7 @@ const Banner = ({ viewText, back }) => {
     
     return (
         <div className="banner">
-            <h1 className='banner__text'>{viewText}</h1>
+            <h2 className='banner__text'>{viewText}</h2>
             <div className="banner_options">
                 <LogOut size={35} onClick={logOut} aria-label="Log Out" />
                 {

@@ -28,20 +28,29 @@ const CreateGame = () => {
   const buttonSound = useSound("button");
 
   const handleRequest = async () => {
-    try{
+    try {
       const response = await createPairing(user, song);
+      console.log(response);
       setUser({
         ...user,
-        pairings: [...user.pairings, response]
-      })
+        pairings: [...user.pairings, response],
+      });
       setPairingCode(response.pairingCode);
-      console.log(response);
-      navigate('/profile')
-    }catch{
+      vanish();
+      setTimeout(() => {
+        navigate("/profile");
+      }, 400);
+    } catch {
       console.log("Error creating pairing");
       setPairingCode("");
     }
   };
+
+  useEffect(() => {
+    if (!user || !user.nickname || !user.profileImage) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (!user || !user.nickname || !user.profileImage) {
@@ -108,7 +117,11 @@ const CreateGame = () => {
     <div className="create vanish">
       <Banner viewText="New Game" back={handleBack} />
       <div className="create__frame">
-        <Frame src={user.profileImage} text={user.nickname} fontSize={"1rem"} />
+        <Frame
+          src={user.profileImage}
+          text={user.nickname}
+          fontSize={".8rem"}
+        />
         <Frame src={"/images/question.png"} />
       </div>
 

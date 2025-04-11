@@ -68,10 +68,10 @@ button:disabled:hover{
 
 .simple:hover{
     box-shadow: none !important;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .simple:active{
     box-shadow: none;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }

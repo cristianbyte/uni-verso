@@ -1,4 +1,5 @@
 const API_URL = 'http://192.168.1.7:8080/api/v1';
+const token = localStorage.getItem('token');
 
 export const getUser = async (userData) => {
     try {
@@ -9,7 +10,7 @@ export const getUser = async (userData) => {
         const response = await fetch(`${API_URL}/user/${userData.myuuid}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${userData.myuuid}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Accept': '*/*'
             }

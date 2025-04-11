@@ -23,7 +23,7 @@ function Profile() {
   }, [user, navigate]);
 
   const handleCodeSubmit = async (code) => {
-      console.log("Código ingresado:", code);
+      
       try{
           const response = await submitCode( user,code);
           if (response.status === 200){
@@ -33,10 +33,8 @@ function Profile() {
               ...user,
               pairings: [...user.pairings, response]
             });
-          }else if (response.status === 400){
-            showAlert("THE CODE HAS ALREADY BEEN USED", "error");
-          }else if(response.status === 404){
-            showAlert("WRONG CODE", "error");
+          }else if (response.status){
+            showAlert(response.message, "error");
           }else{
             showAlert("UNKNOWN ERROR", "error");
         }
@@ -52,7 +50,7 @@ function Profile() {
       <div className="profile vanish">
           <Banner />
           <div className="profile__frame">
-              <Frame src={user.profileImage} text={user.nickname} />
+              <Frame src={user.profileImage} text={user.nickname} fontSize={"2rem"} />
           </div>
           <div className="profile__content">
               <div className="profile__options--game">

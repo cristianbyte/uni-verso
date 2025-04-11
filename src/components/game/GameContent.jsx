@@ -8,16 +8,29 @@ import Frame from "../../components/frame/Frame.jsx";
 import GameLyics from "./GameLyrics.jsx";
 import GameSelector from "./GameSelector.jsx";
 import "./game.css";
+import { useNavigate } from "react-router-dom";
 import Button from "../button/Button.jsx";
+import { submitLines } from "../../services/pairingService/submitLines.js";
+import { showAlert } from "../alert/alertService.jsx";
 
 const GameContent = ({ songData }) => {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [verseList, setVerseList] = useState([]);
   const [currentVerse, setCurrentVerse] = useState(0);
+  const [ pairedPlayer, setPairedPlayer] = useState({});
   const [progressPercentage, setProgressPercentage] = useState(0);
-  const totalVerses = songData.verseCount;
-
+  const totalVerses = songData.song.verseCount;
+  
   useEffect(() => {
+    const isCreator = user.nickname === songData.creatorUser.name;
+    const paired = isCreator ? songData.pairedUser : songData.creatorUser;
+  
+    setPairedPlayer({
+      name: paired.name,
+      image: paired.icon,
+    });
+  
     setUser((prevUser) => ({
       ...prevUser,
       soundEnabled: false,
@@ -27,8 +40,9 @@ const GameContent = ({ songData }) => {
   useEffect(() => {
     const loadLyrics = async () => {
       try {
-        const lyricsData = await fetchUrl(songData.lyricsApiUrl);
+        const lyricsData = await fetchUrl(songData.song.lyricsApiUrl);
         const verses = processLyrics(lyricsData.lyrics);
+        console.log(verses);
         const formattedVerses = verses.map((text, index) => ({
           id: index,
           text,
@@ -42,12 +56,34 @@ const GameContent = ({ songData }) => {
     };
 
     loadLyrics();
-  }, [songData.lyricsApiUrl]);
+  }, [songData.song.lyricsApiUrl]);
 
   // update progress bar
   useEffect(() => {
     setProgressPercentage(((currentVerse + 1) / totalVerses) * 100);
   }, [currentVerse, totalVerses]);
+
+  // end game
+  const handleEnding = async () => {
+    try{
+      const finalVerseList = verseList.map((verse) => verse.status);
+      const response = await submitLines(user, finalVerseList, songData.pairingCode);
+      if (response) {
+        showAlert("Lines submitted successfully!", "success");
+      } else {
+        showAlert("Error submitting lines", "error");
+      }
+      setUser((prevUser) => ({
+        ...prevUser,
+        soundEnabled: true,
+      }));
+      navigate("/");
+    }
+    catch (error) {
+      console.error("Error ending game:", error.message);
+      showAlert("Ops! something went wrong", "error");
+    }
+  };
 
   return (
     <>
@@ -56,23 +92,23 @@ const GameContent = ({ songData }) => {
           {/* Display song data here */}
           <div className="game__info">
             <div className="info__frame">
-              <Frame />
+              <Frame src={pairedPlayer.image} text={pairedPlayer.name} fontSize={"1rem"} />
             </div>
             <div className="info__details">
               <div className="details__row">
                 <div className="details__pic">
-                  <img src={songData.albumImage} alt="" />
+                  <img src={songData.song.albumImage} alt="" />
                 </div>
                 <div className="details__data">
-                  <h4>{songData.artist}</h4>
-                  <h4>{songData.title}</h4>
+                  <h4>{songData.song.artist}</h4>
+                  <h4>{songData.song.title}</h4>
                   <h4>
                     {currentVerse}/{totalVerses}
                   </h4>
                 </div>
               </div>
               <ProgressLoader value={progressPercentage} />
-              <SongPlayer url={songData.preview} className="details__player" />
+              <SongPlayer url={songData.song.preview} className="details__player" />
             </div>
           </div>
 
@@ -90,7 +126,7 @@ const GameContent = ({ songData }) => {
           </div>
           {progressPercentage >= 99 && (
             <div className="game__end">
-              <Button text={"End Game"}  className="third simple" />
+              <Button text={"End Game"}  className="third simple" onClick={handleEnding}/>
             </div>
             )}
         </div>

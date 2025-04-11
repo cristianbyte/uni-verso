@@ -1,6 +1,6 @@
 const fetchSuggestions = async (query) => {
     try {
-      const response = await fetch(`https://api.lyrics.ovh/suggest/${query}`);
+      const response = await fetch(`https://proxi-api.vercel.app/api/proxy?url=https://api.deezer.com/search?q=${query}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
