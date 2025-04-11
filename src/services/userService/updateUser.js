@@ -1,11 +1,12 @@
 const API_URL = 'http://192.168.1.7:8080/api/v1';
+const token = localStorage.getItem('token');
 
 export const updateUser = async (userData) => {
     try {
         const response = await fetch(`${API_URL}/user/${userData.id}`, {
             method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${userData.id}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Accept': '*/*'
             },
