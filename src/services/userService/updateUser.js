@@ -1,4 +1,4 @@
-const API_URL = 'http://192.168.1.7:8080/api/v1';
+const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
 const token = localStorage.getItem('token');
 
 export const updateUser = async (userData) => {
