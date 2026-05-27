@@ -13,6 +13,8 @@ import Button from "../button/Button.jsx";
 import { submitLines } from "../../services/pairingService/submitLines.js";
 import { showAlert } from "../alert/alertService.jsx";
 import fetchSuggestions from "../../services/fetchSuggestion.js";
+import YoutubePlayer from "../youtubePlayer/YoutubePlayer.jsx";
+import { searchYoutubeVideo } from "../../services/youtubeService/searchYoutubeVideo.js";
 
 const GameContent = ({ songData }) => {
   const navigate = useNavigate();
@@ -23,6 +25,8 @@ const GameContent = ({ songData }) => {
   const [audioPreviewUrl, setAudioPreviewUrl] = useState(songData.song.preview);
   const [hasRefreshedAudioPreview, setHasRefreshedAudioPreview] = useState(false);
   const [hasHandledAudioError, setHasHandledAudioError] = useState(false);
+  const [youtubeVideoId, setYoutubeVideoId] = useState(null);
+  const [youtubeStatusMessage, setYoutubeStatusMessage] = useState("Loading video...");
   const [progressPercentage, setProgressPercentage] = useState(0);
   const totalVerses = songData.song.verseCount;
 
@@ -97,6 +101,21 @@ const GameContent = ({ songData }) => {
     }
   }, [hasRefreshedAudioPreview, refreshAudioPreview]);
 
+  useEffect(() => {
+    const loadYoutubeVideo = async () => {
+      try {
+        const videoId = await searchYoutubeVideo(songData.song.artist, songData.song.title);
+        setYoutubeVideoId(videoId);
+      } catch (error) {
+        console.error("Error loading YouTube video:", error.message);
+        setYoutubeStatusMessage("Video unavailable");
+        showAlert(error.message || "Video unavailable", "info");
+      }
+    };
+
+    loadYoutubeVideo();
+  }, [songData.song.artist, songData.song.title]);
+
   // update progress bar
   useEffect(() => {
     setProgressPercentage(((currentVerse + 1) / totalVerses) * 100);
@@ -127,7 +146,7 @@ const GameContent = ({ songData }) => {
   return (
     <>
       {songData && (
-        <div className="game">
+        <div className="game game--with-video">
           {/* Display song data here */}
           <div className="game__info">
             <div className="info__frame">
@@ -149,6 +168,10 @@ const GameContent = ({ songData }) => {
               <ProgressLoader value={progressPercentage} />
               <SongPlayer url={audioPreviewUrl} className="details__player" onError={handleAudioError} />
             </div>
+          </div>
+
+          <div className="game__video-area">
+            <YoutubePlayer videoId={youtubeVideoId} statusMessage={youtubeStatusMessage} />
           </div>
 
           <div className="game__lyrics-area">

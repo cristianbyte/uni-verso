@@ -10,24 +10,29 @@
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 5vh;
+  justify-content: flex-start;
+  gap: clamp(.5rem, 1.4vh, 1rem);
   align-items: center;
-  padding: 1rem;
+  padding: clamp(.5rem, 1.5vh, 1rem);
   color: var(--color-primary);
   background-color: white;
+  overflow: hidden;
+}
+
+.game--with-video {
+  justify-content: flex-start;
 }
 
 .game__info {
-  top: 1rem;
-  position: absolute;
+  position: relative;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: row;
   width: 100%;
   max-width: 600px;
-  padding: 0 1rem;
+  padding: 0;
   gap: 1rem;
-  height: 18vh;
+  height: clamp(7rem, 18dvh, 9.25rem);
   line-height: 1rem;
 
   .info__frame {
@@ -71,11 +76,26 @@
 
 /*---- LYRICS ----*/
 
+.game__video-area {
+  width: min(600px, 100%);
+  flex: 0 1 24dvh;
+  max-height: 24dvh;
+  min-height: 7rem;
+  display: flex;
+}
+
 .game__lyrics-area {
   position: relative;
   width: min(600px, 100%);
-  height: max(300px, 100vw);
-  max-height: 400px;
+  height: auto;
+  min-height: 0;
+  flex: 1 1 0;
+}
+
+.game--with-video .game__lyrics-area {
+  height: auto;
+  min-height: 0;
+  max-height: unset;
 }
 
 .game__lyrics {
@@ -169,12 +189,12 @@
 
 .game__selector {
   width: min(600px, 100%);
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25vh;
-  bottom: 0;
+  height: auto;
+  flex: 0 0 auto;
   color: var(--color-primary);
   z-index: 10;
 }
@@ -196,7 +216,7 @@
 
     button {
       width: 50%;
-      height: 4rem;
+      height: clamp(3rem, 8dvh, 4rem);
     }
   }
 }
@@ -204,12 +224,47 @@
 /*---- END ----*/
 
 .game__end{
-  position: absolute;
-  bottom: 10px;
-  padding: 5px;
+  position: relative;
+  flex: 0 0 auto;
+  width: min(600px, 100%);
+  display: flex;
+  justify-content: center;
+  padding: 0 0 .25rem;
   z-index: 100;
   Button{
-    padding: 5px !important;
+    min-width: 11rem;
+    min-height: clamp(3rem, 7dvh, 3.75rem);
+    padding: .75rem 1.5rem !important;
+    font-size: 1.15rem;
+    border-radius: var(--border-radius);
+  }
+}
+
+@media (max-height: 760px) {
+  .game--with-video {
+    gap: .45rem;
+  }
+
+  .game__info {
+    height: clamp(6rem, 16dvh, 7.5rem);
+  }
+
+  .game__video-area {
+    flex-basis: 20dvh;
+    max-height: 20dvh;
+    min-height: 5.5rem;
+  }
+
+  .selector {
+    padding: 0 .5rem;
+
+    .selector__options {
+      padding: .5rem 0;
+
+      button {
+        height: clamp(2.75rem, 7dvh, 3.25rem);
+      }
+    }
   }
 }
 

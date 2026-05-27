@@ -1,14 +1,9 @@
 import { X, Check } from "lucide-react";
-import { useState, useEffect } from "react";
 import Button from "../button/Button";
 
 const GameSelector = ({ verseList, setVerseList, currentVerse, setCurrentVerse }) => {
-  const [fadeOut, setFadeOut] = useState(false);
-
   const handleNextVerse = (status) => {
-    setFadeOut(true); // Inicia la animación de salida
     setTimeout(() => {
-      setFadeOut(false); // Desactiva la animación de salida
       setVerseList((prevList) =>
         prevList.map((verse, index) =>
           index === currentVerse ? { ...verse, status } : verse
