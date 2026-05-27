@@ -1,6 +1,7 @@
 import './songPreview.css'
+import { DEEZER_COVER_BASE_URL } from '../../config/app-config';
 
-const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics, isSample}) => {
+const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics}) => {
 
     const formattedLyrics = Array.isArray(lyrics) ? lyrics.join('\n') : '';
 
@@ -8,7 +9,7 @@ const SongPreview = ({codImg, artist, title, verseCount = 10, lyrics, isSample})
         <div className='songPrev' >
             <div className="songPreview">
                 { codImg &&
-                    <img className='songPrev__img' src={`http://e-cdns-images.dzcdn.net/images/cover/${codImg}/500x500.jpg`} alt={title} />
+                    <img className='songPrev__img' src={`${DEEZER_COVER_BASE_URL}/${codImg}/500x500.jpg`} alt={title} />
                 }
                 <div className="songPrev__info">
                     <h4 className='songPrev__text' >{title}</h4>

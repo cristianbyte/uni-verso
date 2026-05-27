@@ -1,7 +1,6 @@
 import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
-const token = localStorage.getItem('token');
+import { API_BASE_URL } from "../../config/app-config";
+import { getAuthHeaders, parseJsonResponse, throwRequestError } from "../authRequest";
 
 export const deleteUser = async (uuid) => {
     showLoading();
@@ -10,22 +9,19 @@ export const deleteUser = async (uuid) => {
             throw new Error('User ID is required');
         }
         
-        const response = await fetch(`${API_URL}/user/${uuid}`, {
+        const response = await fetch(`${API_BASE_URL}/user/${uuid}`, {
             method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Accept': '*/*'
-            }
+            headers: getAuthHeaders()
         });
         
         if (response.status === 204 || response.status === 404) {
             return true;
         }
         
-        if (response.headers.get('content-length') > 0) {
-            const data = await response.json();
-            console.log(data);
+        const data = await parseJsonResponse(response);
+
+        if (!response.ok) {
+            throwRequestError(response, data);
         }
         
         throw new Error(`Unexpected response status: ${response.status}`);

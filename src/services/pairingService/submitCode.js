@@ -1,32 +1,28 @@
 import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
-const token = localStorage.getItem('token');
+import { API_BASE_URL } from "../../config/app-config";
+import { getAuthHeaders, parseJsonResponse, throwRequestError } from "../authRequest";
 
 export const submitCode = async (userData, code) => {
   try {
     showLoading();
-    const response = await fetch(`${API_URL}/pairing/${code}/pair`, {
+    const normalizedPairingCode = code.trim().toUpperCase();
+    const response = await fetch(`${API_BASE_URL}/pairing/${normalizedPairingCode}/pair`, {
       method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': '*/*'
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify({
         "userId": userData.myuuid,
       })
     });
     
-    const data = await response.json();
+    const data = await parseJsonResponse(response);
     
     if (!response.ok) {
-      console.log(data);
+      throwRequestError(response, data);
     }
     
     return {...data, status : response.status};
   } catch (error) {
-    console.error('Error creating paring:', error);
+    console.error('Error pairing user:', error.message);
     throw error;
   }finally {
     hideLoading();

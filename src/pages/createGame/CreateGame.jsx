@@ -5,6 +5,7 @@ import { useSound } from "../../hooks/useSound";
 import { vanish } from "../../utils/vanishEffect";
 import { processLyrics } from "../../utils/processLyrics.js";
 import { createPairing } from "../../services/pairingService/createPairing.js";
+import { showAlert } from "../../components/alert/alertService";
 import fetchSuggestions from "../../services/fetchSuggestion";
 import fetchLyrics from "../../services/fetchLyrics";
 import SongPreview from "../../components/songPreview/SongPreview";
@@ -31,17 +32,19 @@ const CreateGame = () => {
     try {
       const response = await createPairing(user, song);
       console.log(response);
+      const currentPairings = Array.isArray(user.pairings) ? user.pairings : [];
       setUser({
         ...user,
-        pairings: [...user.pairings, response],
+        pairings: [...currentPairings, response],
       });
       setPairingCode(response.pairingCode);
       vanish();
       setTimeout(() => {
         navigate("/profile");
       }, 400);
-    } catch {
-      console.log("Error creating pairing");
+    } catch (error) {
+      showAlert(error.message || "Error creating pairing", "error");
+      console.log("Error creating pairing", error);
       setPairingCode("");
     }
   };

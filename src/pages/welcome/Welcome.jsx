@@ -5,7 +5,6 @@ import { EffectCards } from 'swiper/modules';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../services/userService/createUser';
-import { vanish } from '../../utils/vanishEffect';
 import Frame from '../../components/frame/Frame';
 import Button from '../../components/button/Button';
 import 'swiper/swiper-bundle.css';
@@ -33,7 +32,6 @@ function Welcome() {
   const handleSubmit = async () => {
     const myuuid = uuidv4();
     const selectedImageSrc = images.find(img => img.id === selectedImage)?.src;
-    const isRedirecting = true;
     
     // Handle request to the server.
     try {
@@ -47,7 +45,8 @@ function Welcome() {
         ...user,
         nickname,
         myuuid,
-        profileImage: selectedImageSrc
+        profileImage: selectedImageSrc,
+        pairings: result?.pairings ?? []
       });
       console.log('User created successfully:', result);
     } catch (error) {

@@ -1,7 +1,6 @@
 import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
-const token = localStorage.getItem('token');
+import { API_BASE_URL } from "../../config/app-config";
+import { getAuthHeaders, parseJsonResponse, throwRequestError } from "../authRequest";
 
 export const getUser = async (userData) => {
     showLoading();
@@ -10,24 +9,18 @@ export const getUser = async (userData) => {
             throw new Error('User ID is required');
         }
         
-        const response = await fetch(`${API_URL}/user/${userData.myuuid}`, {
+        const response = await fetch(`${API_BASE_URL}/user/${userData.myuuid}`, {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Accept': '*/*'
-            }
+            headers: getAuthHeaders()
         });
         
-        const data = await response.json();
+        const data = await parseJsonResponse(response);
         
         if (!response.ok) {
-            console.log(data);
+            throwRequestError(response, data);
         }
         
         return data;
-    } catch (error) {
-        throw error;
     }finally {
         hideLoading();
     }

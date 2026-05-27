@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { submitCode } from '../../services/pairingService/submitCode';
-import { useSound } from '../../hooks/useSound';
 import { showAlert } from '../../components/alert/alertService';
 import CustomPopup from "../../components/customPopup/CustomPopup";
 import Pairings from '../../components/pairings/Pairings';
@@ -29,9 +28,10 @@ function Profile() {
           if (response.status === 200){
             setIsPopupOpen(false);
             showAlert("CODE SUCCESS", "success");
+            const currentPairings = Array.isArray(user.pairings) ? user.pairings : [];
             setUser({
               ...user,
-              pairings: [...user.pairings, response]
+              pairings: [...currentPairings, response]
             });
           }else if (response.status){
             showAlert(response.message, "error");
@@ -39,8 +39,9 @@ function Profile() {
             showAlert("UNKNOWN ERROR", "error");
         }
 
-      }catch{
-        console.log("Error al ingresar código");
+      }catch(error){
+        showAlert(error.message || "Error al ingresar código", "error");
+        console.log("Error al ingresar código", error);
 
       }
 

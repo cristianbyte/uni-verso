@@ -1,4 +1,5 @@
 import { hideLoading, showLoading } from "../components/loading/loadingUtils";
+import { LYRICS_API_BASE_URL } from "../config/app-config";
 
 const CACHE_DURATION = 20 * 60 * 1000; // 20 minutes
 
@@ -18,7 +19,7 @@ const fetchLyrics = async (artist, title) => {
   
   showLoading();
   try {
-    const response = await fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`);
+    const response = await fetch(`${LYRICS_API_BASE_URL}/${artist}/${title}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

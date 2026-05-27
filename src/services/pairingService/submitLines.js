@@ -1,19 +1,14 @@
 import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
-const token = localStorage.getItem('token');
+import { API_BASE_URL } from "../../config/app-config";
+import { getAuthHeaders, parseJsonResponse, throwRequestError } from "../authRequest";
 
 export const submitLines = async (userData, lines, pairingCode) => {
   showLoading();
   try {
 
-    const response = await fetch(`${API_URL}/pairing/${pairingCode}/lines`, {
+    const response = await fetch(`${API_BASE_URL}/pairing/${pairingCode}/lines`, {
       method: "PATCH",
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify({
         pairingCode: pairingCode,
         userId: userData.myuuid,
@@ -21,15 +16,15 @@ export const submitLines = async (userData, lines, pairingCode) => {
       }),
     });
 
-    const data = await response.json();
+    const data = await parseJsonResponse(response);
 
     if (!response.ok) {
-      console.log(data);
+      throwRequestError(response, data);
     }
 
     return data;
   } catch (error) {
-    console.error("Error sendig lines:", error);
+    console.error("Error sending lines:", error.message);
     throw error;
   }finally {
     hideLoading();

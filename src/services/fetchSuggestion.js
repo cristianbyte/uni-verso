@@ -1,6 +1,8 @@
+import { DEEZER_PROXY_URL } from "../config/app-config";
+
 const fetchSuggestions = async (query) => {
     try {
-      const response = await fetch(`https://proxi-api.vercel.app/api/proxy?url=https://api.deezer.com/search?q=${query}`);
+      const response = await fetch(`${DEEZER_PROXY_URL}?url=https://api.deezer.com/search?q=${query}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

@@ -26,10 +26,7 @@ const PairingStats = ({ pairingCode }) => {
     try {
       const response = await getPairingDataByCode(user, pairingCode);
 
-      if (
-        response.creatorLines.length == 0 ||
-        response.pairedLines.length == 0
-      ) {
+      if (!response.creatorLines?.length || !response.pairedLines?.length) {
         showAlert("No stats available yet", "info");
         return;
       }
@@ -43,7 +40,7 @@ const PairingStats = ({ pairingCode }) => {
 
       setIsOpen(true);
     } catch (error) {
-      showAlert("Failed to fetch data.", "error");
+      showAlert(error.message || "Failed to fetch data.", "error");
     }
   };
 

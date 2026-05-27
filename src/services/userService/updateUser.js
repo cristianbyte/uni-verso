@@ -1,18 +1,13 @@
 import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
-const token = localStorage.getItem('token');
+import { API_BASE_URL } from "../../config/app-config";
+import { getAuthHeaders, parseJsonResponse, throwRequestError } from "../authRequest";
 
 export const updateUser = async (userData) => {
     showLoading();
     try {
-        const response = await fetch(`${API_URL}/user/${userData.id}`, {
+        const response = await fetch(`${API_BASE_URL}/user/${userData.id}`, {
             method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Accept': '*/*'
-            },
+            headers: getAuthHeaders(),
             body: JSON.stringify({
                 id: userData.id,
                 name: userData.name,
@@ -20,10 +15,10 @@ export const updateUser = async (userData) => {
             })
         });
         
-        const data = await response.json();
+        const data = await parseJsonResponse(response);
         
         if (!response.ok) {
-            console.log(data);
+            throwRequestError(response, data);
         }
         
         return data;

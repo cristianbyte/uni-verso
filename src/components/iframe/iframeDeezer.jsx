@@ -1,8 +1,10 @@
+import { DEEZER_WIDGET_BASE_URL } from '../../config/app-config';
+
 const IframeDeezer = ({trackId}) => {
     return (
         <iframe 
             title="deezer-widget" 
-            src={`https://widget.deezer.com/widget/light/track/${trackId}`}
+            src={`${DEEZER_WIDGET_BASE_URL}/${trackId}`}
             width="100%" 
             height="150px" 
             allowtransparency="true" 

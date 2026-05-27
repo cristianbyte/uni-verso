@@ -1,41 +1,39 @@
-import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
-const token = localStorage.getItem('token');
+import {
+  showLoading,
+  hideLoading,
+} from "../../components/loading/loadingUtils";
+import { API_BASE_URL, DEEZER_COVER_BASE_URL } from "../../config/app-config";
+import { getAuthHeaders, parseJsonResponse, throwRequestError } from "../authRequest";
 
 export const createPairing = async (userData, song) => {
   try {
     showLoading();
-    const response = await fetch(`${API_URL}/pairing/create`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': '*/*'
-      },
+    const response = await fetch(`${API_BASE_URL}/pairing/create`, {
+      method: "POST",
+      headers: getAuthHeaders(),
       body: JSON.stringify({
-        "creatorUserId": userData.myuuid,
-        "pairedUserId": null,
-        "song": {
-          "id": song.id,
-          "title": song.title,
-          "preview": song.preview,
-          "artist": song.artist.name,
-          "albumImage": `http://e-cdns-images.dzcdn.net/images/cover/${song.md5_image}/500x500.jpg`,
-          "verseCount": song.lyrics.length
-        }
-      })
+        creatorUserId: userData.myuuid,
+        pairedUserId: null,
+        song: {
+          id: song.id,
+          title: song.title,
+          preview: song.preview,
+          artist: song.artist.name,
+          albumImage: `${DEEZER_COVER_BASE_URL}/${song.md5_image}/500x500.jpg`,
+          verseCount: song.lyrics.length,
+        },
+      }),
     });
-    
-    const data = await response.json();
-    
+
+    const data = await parseJsonResponse(response);
+
     if (!response.ok) {
-      console.log(data);
+      throwRequestError(response, data);
     }
-    
+
     return data;
   } catch (error) {
-    console.error('Error creating paring:', error);
+    console.error("Error creating pairing:", error.message);
     throw error;
   } finally {
     hideLoading();

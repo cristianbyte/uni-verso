@@ -1,11 +1,10 @@
 import { showLoading, hideLoading } from "../../components/loading/loadingUtils";
-
-const API_URL = 'https://uni-verso-api.onrender.com/api/v1';
+import { API_BASE_URL } from "../../config/app-config";
 
 export const createUser = async (userData) => {
   showLoading();
   try {
-    const response = await fetch(`${API_URL}/user/auth`, {
+    const response = await fetch(`${API_BASE_URL}/user/auth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
