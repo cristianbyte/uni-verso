@@ -271,12 +271,11 @@
 /*---- LOADER ----*/
 
 .game__loading {
-  position: absolute;
+  position: fixed;
   height: 100px;
   width: 100px;
   top: 30%;
   left: calc(50% - 50px);
-  /* display: none; */
   transform-origin: center;
   border: 10px solid var(--color-shadow);
   border-top: 10px solid var(--color-main);
