@@ -2,7 +2,8 @@ import { DEEZER_PROXY_URL } from "../config/app-config";
 
 const fetchSuggestions = async (query) => {
     try {
-      const response = await fetch(`${DEEZER_PROXY_URL}?url=https://api.deezer.com/search?q=${query}`);
+      const encodedQuery = encodeURIComponent(query);
+      const response = await fetch(`${DEEZER_PROXY_URL}?url=https://api.deezer.com/search?q=${encodedQuery}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

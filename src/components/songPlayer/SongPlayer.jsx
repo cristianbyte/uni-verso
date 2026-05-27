@@ -8,6 +8,7 @@ const SongPlayer = ({
   volume = 0.7,
   controls = true,
   className,
+  onError,
 }) => {
   const audioRef = useRef(null);
   
@@ -20,6 +21,7 @@ const SongPlayer = ({
   
   return (
     <audio 
+      key={url || 'empty-audio'}
       ref={audioRef}
       src={url} 
       controls={controls} 
@@ -27,6 +29,7 @@ const SongPlayer = ({
       loop={loop}
       className={`custom-audio-player ${className}`}
       controlsList="nodownload noplaybackrate"
+      onError={onError}
     >
       Audio not supported
     </audio>

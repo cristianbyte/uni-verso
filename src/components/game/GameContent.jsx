@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react"; // Añadido useRef
+import { useCallback, useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext.jsx";
 import { processLyrics } from "../../utils/processLyrics.js";
 import ProgressLoader from "../../components/loader/ProgressLoader.jsx";
@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../button/Button.jsx";
 import { submitLines } from "../../services/pairingService/submitLines.js";
 import { showAlert } from "../alert/alertService.jsx";
+import fetchSuggestions from "../../services/fetchSuggestion.js";
 
 const GameContent = ({ songData }) => {
   const navigate = useNavigate();
@@ -19,8 +20,39 @@ const GameContent = ({ songData }) => {
   const [verseList, setVerseList] = useState([]);
   const [currentVerse, setCurrentVerse] = useState(0);
   const [ pairedPlayer, setPairedPlayer] = useState({});
+  const [audioPreviewUrl, setAudioPreviewUrl] = useState(songData.song.preview);
+  const [hasRefreshedAudioPreview, setHasRefreshedAudioPreview] = useState(false);
+  const [hasHandledAudioError, setHasHandledAudioError] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
   const totalVerses = songData.song.verseCount;
+
+  const refreshAudioPreview = useCallback(async ({ showUnavailableAlert = false } = {}) => {
+    try {
+      const searchResult = await fetchSuggestions(`${songData.song.artist} ${songData.song.title}`);
+      const matchingSong = searchResult.data?.find((song) => song.id === songData.song.id) || searchResult.data?.[0];
+
+      if (matchingSong?.preview) {
+        setAudioPreviewUrl(matchingSong.preview);
+        return;
+      }
+
+      if (showUnavailableAlert) {
+        showAlert("Audio preview is not available for this song", "info");
+      }
+    } catch (error) {
+      console.error("Error loading audio preview fallback:", error.message);
+      if (showUnavailableAlert) {
+        showAlert("Audio preview could not be loaded", "error");
+      }
+    }
+  }, [songData.song.artist, songData.song.id, songData.song.title]);
+
+  const handleAudioError = useCallback(() => {
+    if (hasHandledAudioError) return;
+
+    setHasHandledAudioError(true);
+    refreshAudioPreview({ showUnavailableAlert: true });
+  }, [hasHandledAudioError, refreshAudioPreview]);
   
   useEffect(() => {
     const isCreator = user.nickname === songData.creatorUser.name;
@@ -35,7 +67,7 @@ const GameContent = ({ songData }) => {
       ...prevUser,
       soundEnabled: false,
     }));
-  }, []);
+  }, [setUser, songData.creatorUser, songData.pairedUser, user.nickname]);
 
   useEffect(() => {
     const loadLyrics = async () => {
@@ -57,6 +89,13 @@ const GameContent = ({ songData }) => {
 
     loadLyrics();
   }, [songData.song.lyricsApiUrl]);
+
+  useEffect(() => {
+    if (!hasRefreshedAudioPreview) {
+      setHasRefreshedAudioPreview(true);
+      refreshAudioPreview();
+    }
+  }, [hasRefreshedAudioPreview, refreshAudioPreview]);
 
   // update progress bar
   useEffect(() => {
@@ -108,7 +147,7 @@ const GameContent = ({ songData }) => {
                 </div>
               </div>
               <ProgressLoader value={progressPercentage} />
-              <SongPlayer url={songData.song.preview} className="details__player" />
+              <SongPlayer url={audioPreviewUrl} className="details__player" onError={handleAudioError} />
             </div>
           </div>
 
