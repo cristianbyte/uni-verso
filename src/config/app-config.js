@@ -1,4 +1,4 @@
-const productionApiBaseUrl = "https://api.unverso.coder.red";
+const productionApiBaseUrl = "https://uni-verso-api.onrender.com/api/v1";
 const developmentApiBaseUrl = "http://localhost:8080/api/v1";
 
 export const API_BASE_URL =
