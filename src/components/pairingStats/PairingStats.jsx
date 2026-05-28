@@ -9,49 +9,7 @@ import PieChart from "../charts/pie.jsx";
 import fetchUrl from "../../services/fetchUrl.js";
 import "./pairingStats.css";
 
-const Loading = () => <div className="stats__loading"></div>;
-
-const calculatePairingMetrics = (creatorLines, pairedLines) => {
-  const totalVerses = Math.min(creatorLines.length, pairedLines.length);
-  let creatorPickCount = 0;
-  let pairedPickCount = 0;
-  let matchedVerseCount = 0;
-  let selectedByEitherCount = 0;
-  let creatorOnlyCount = 0;
-  let pairedOnlyCount = 0;
-
-  for (let verseIndex = 0; verseIndex < totalVerses; verseIndex++) {
-    const isCreatorPick = Boolean(creatorLines[verseIndex]);
-    const isPairedPick = Boolean(pairedLines[verseIndex]);
-
-    if (isCreatorPick) creatorPickCount++;
-    if (isPairedPick) pairedPickCount++;
-    if (isCreatorPick || isPairedPick) selectedByEitherCount++;
-    if (isCreatorPick && isPairedPick) matchedVerseCount++;
-    if (isCreatorPick && !isPairedPick) creatorOnlyCount++;
-    if (!isCreatorPick && isPairedPick) pairedOnlyCount++;
-  }
-
-  const affinityScore = selectedByEitherCount
-    ? (matchedVerseCount / selectedByEitherCount) * 100
-    : 0;
-
-  const sharedCoverageScore = totalVerses
-    ? (matchedVerseCount / totalVerses) * 100
-    : 0;
-
-  return {
-    totalVerses,
-    creatorPickCount,
-    pairedPickCount,
-    matchedVerseCount,
-    selectedByEitherCount,
-    creatorOnlyCount,
-    pairedOnlyCount,
-    affinityScore,
-    sharedCoverageScore,
-  };
-};
+const Loading = () => <div className="game__loading"></div>;
 
 const PairingStats = ({ pairingCode }) => {
   const { user } = useContext(UserContext);
@@ -74,18 +32,17 @@ const PairingStats = ({ pairingCode }) => {
       }
 
       setData(response);
-      const fetch = await fetchUrl(response.song.lyricsApiUrl);
+      console.log("fetched data", response);
+      const fetch = await fetchUrl(response.song.lyricsApiUrl)
+      console.log(fetch);
       setVerses(processLyrics(fetch.lyrics));
+      console.log(verses);
 
       setIsOpen(true);
     } catch (error) {
       showAlert(error.message || "Failed to fetch data.", "error");
     }
   };
-
-  const metrics = data
-    ? calculatePairingMetrics(data.creatorLines, data.pairedLines)
-    : null;
 
   return (
     <div className={`stats ${isOpen ? "open" : ""}`} id="stats">
@@ -106,53 +63,35 @@ const PairingStats = ({ pairingCode }) => {
             <div className="stats__score">
               <div className="score">
                 <PieChart
-                  value={metrics.affinityScore}
+                  value={data.pairingScore.connectionScore}
                   total={100}
-                  text={metrics.affinityScore.toFixed(1)  + "%"}
+                  text={data.pairingScore.connectionScore.toFixed(1)  + "%"}
                 />
                 <h6>
-                  Afinidad <br /> emocional
+                  Match <br /> Percentage
                 </h6>
               </div>
               <div className="score">
                 <PieChart
-                  value={metrics.matchedVerseCount}
-                  total={metrics.totalVerses}
+                  value={data.pairingScore.selectedVerses}
+                  total={data.creatorLines.length}
                   text={
-                    metrics.matchedVerseCount +
+                    data.pairingScore.selectedVerses +
                     "/" +
-                    metrics.totalVerses
+                    data.creatorLines.length
                   }
                 />
                 <h6>
-                  Versos <br /> en común
+                  Verses <br /> Selected
                 </h6>
               </div>
             </div>
-            <div className="stats__summary">
-              <div className="stats__metric-card">
-                <span>Seleccionados por alguno</span>
-                <strong>{metrics.selectedByEitherCount}/{metrics.totalVerses}</strong>
-              </div>
-              <div className="stats__metric-card">
-                <span>Cobertura compartida</span>
-                <strong>{metrics.sharedCoverageScore.toFixed(1)}%</strong>
-              </div>
-              <div className="stats__metric-card">
-                <span>Solo {data.creatorUser.name}</span>
-                <strong>{metrics.creatorOnlyCount}</strong>
-              </div>
-              <div className="stats__metric-card">
-                <span>Solo {data.pairedUser.name}</span>
-                <strong>{metrics.pairedOnlyCount}</strong>
-              </div>
-            </div>
             <div className="stats__you-and-me">
-              <div className="me">{data.creatorUser.name}: {metrics.creatorPickCount}</div>
-              <div className="you">{data.pairedUser.name}: {metrics.pairedPickCount}</div>
+              <div className="me">{data.creatorUser.name}</div>
+              <div className="you">{data.pairedUser.name}</div>
             </div>
             <div className="stats__lines">
-              <h6>Versos</h6>
+              <h6>Verses</h6>
               <div className="lines">
                 {!verses ? (
                   <Loading />

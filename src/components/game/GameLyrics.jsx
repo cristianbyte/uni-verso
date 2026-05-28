@@ -6,8 +6,8 @@ const GameLyrics = ({ verseList, currentVerse, setCurrentVerse }) => {
 
   // Inicializa el array de refs
   useEffect(() => {
-    versesRef.current = verseList.map(
-      (_, i) => versesRef.current[i] || React.createRef(),
+    versesRef.current = verseList.map((_, i) => 
+      versesRef.current[i] || React.createRef()
     );
   }, [verseList]);
 
@@ -15,28 +15,25 @@ const GameLyrics = ({ verseList, currentVerse, setCurrentVerse }) => {
   useEffect(() => {
     if (versesRef.current[currentVerse]?.current) {
       versesRef.current[currentVerse].current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+        behavior: 'smooth',
+        block: 'center'
       });
     }
-  }, [currentVerse, setCurrentVerse]);
+  }, [currentVerse,setCurrentVerse]);
 
   return (
-    <div ref={containerRef} className="game__lyrics">
-      {verseList && verseList.length > 0 ? (
-        verseList.map((verse, index) => (
-          <div
-            key={index}
-            ref={versesRef.current[index]}
-            onClick={() => setCurrentVerse(index)}
-            className={`verse ${verse.status} ${index === currentVerse ? "current" : ""}`}
-          >
-            {verse.text}
-          </div>
-        ))
-      ) : (
-        <div className="game__loading"></div>
-      )}
+    <div ref={containerRef } className="game__lyrics">
+        { (verseList && verseList.length > 0) ? 
+      verseList.map((verse, index) => (
+        <div 
+          key={index} 
+          ref={versesRef.current[index]}
+          onClick={() => setCurrentVerse(index)}
+          className={`verse ${verse.status} ${index === currentVerse ? 'current' : ''}`}
+        >
+          {verse.text}
+        </div>
+      )) : <div className="game__loading"></div>}
     </div>
   );
 };
